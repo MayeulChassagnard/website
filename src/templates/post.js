@@ -17,7 +17,7 @@ const BlogPost = ({ data, pageContext, location }) => {
   const post = data.contentfulPost
 
   const comments = `https://mobile.twitter.com/search?q=${encodeURIComponent(
-    `https://iammatthias.com/blog/${post.slug}/`
+    `https://mayeulchassagnard.com/blog/${post.slug}/`
   )}`
   const previous = pageContext.prev
   const next = pageContext.next

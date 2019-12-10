@@ -1,25 +1,27 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import { Wrapper, Content } from './Utils'
-import { FiTwitter, FiInstagram } from 'react-icons/fi'
+import { FiTwitter, FiInstagram, FiYoutube, FiCamera } from 'react-icons/fi'
 
 const Footer = props => {
   return (
     <Wrapper>
       <Content className="footer">
         <section>
-          <h2>Colophone</h2>
+          <h2>-</h2>
           <p>
             <Link to="/">Home</Link>&nbsp;&nbsp;&nbsp;
             <Link to="/blog">Blog</Link>&nbsp;&nbsp;&nbsp;
             <Link to="/contact">Contact</Link>
           </p>
-          <p>
-            <FiTwitter />{' '}
-            <a href="https://twitter.com/iammatthias">@iammatthias</a>
+          <p className="small">
+            @mayeulchassagnard
             &nbsp;&nbsp;&nbsp;
-            <FiInstagram />{' '}
-            <a href="https://instagram.com/iammatthias">@iammatthias</a>
+            <a href="https://www.flickr.com/photos/mayeulchassagnard/"><FiCamera />{' '}</a>
+            &nbsp;&nbsp;&nbsp;
+            <a href="https://instagram.com/mayeulchassagnard"><FiInstagram />{' '}</a>
+            &nbsp;&nbsp;&nbsp;
+            <a href="https://www.youtube.com/channel/UC7jFlzmU5oltkxkj_11TrnA"><FiYoutube />{' '}</a>
           </p>
           <p>
             <a
@@ -62,8 +64,20 @@ const Footer = props => {
               </picture>
             </a>
           </p>
-          <p className="small">© 2019 Matthias Jordan. All rights reserved.</p>
-          <p className="small">Made with ♡ in California, USA</p>
+          <p>Based on   
+            <a
+              href="https://github.com/iammatthias/.com"
+              rel="nofollow noopener noreferrer"
+              target="_blank"
+              alt="iammatthias"
+            >
+              &nbsp;
+              @iammatthias
+              &nbsp;
+            </a>template
+          </p>
+          <p className="small">© 2019 Mayeul Chassagnard. All rights reserved.</p>
+          <p className="small">Thank you for watching ♡</p>
         </section>
       </Content>
     </Wrapper>

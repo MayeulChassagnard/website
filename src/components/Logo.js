@@ -12,11 +12,11 @@ const A = styled(Link)`
 
 const Logo = props => {
   return (
-    <A to={`/`} className="noUnderline" alt="I Am Matthias">
+    <A to={`/`} className="noUnderline" alt="Mayeul Chassagnard">
       <img
         src="/logos/logo_40pt.svg"
         className="logo"
-        alt="I Am Matthias"
+        alt="Mayeul Chassagnard"
         width="3.5em"
         height="auto"
       />

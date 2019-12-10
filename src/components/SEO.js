@@ -1,10 +1,10 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 
-const defaultTitle = 'I AM MATTHIAS'
+const defaultTitle = 'Mayeul Chassagnard'
 const defaultDescription =
   'Photographer and digital marketer based in Southern California'
-const defaultImage = 'https://iammatthias.com/share/shareIndex.jpg'
+const defaultImage = 'https://mayeulchassagnard.com/share/shareIndex.jpg'
 
 const SEO = props => (
   <Helmet>
@@ -42,7 +42,7 @@ const SEO = props => (
       <meta property="og:image:height" content={props.image.ogimg.height} />
     ) : null}
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:creator" content="@iammatthias" />
+    <meta name="twitter:creator" content="@mayeulchassagnard" />
     <meta
       name="twitter:title"
       content={props.title ? `${props.title} - ${defaultTitle}` : defaultTitle}
