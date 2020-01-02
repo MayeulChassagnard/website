@@ -14,7 +14,7 @@ const Logo = props => {
   return (
     <A to={`/`} className="noUnderline" alt="Mayeul Chassagnard">
       <img
-        src="/logos/logo_40pt.svg"
+        src="/logos/MC_logo.svg"
         className="logo"
         alt="Mayeul Chassagnard"
         width="3.5em"

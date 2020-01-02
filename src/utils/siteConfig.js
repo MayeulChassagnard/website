@@ -12,8 +12,8 @@ module.exports = {
   shareImage: '/share/share1.jpg', // Open Graph Default Share Image. 1200x630 is recommended
   shareImageWidth: 900, // Change to the width of your default share image
   shareImageHeight: 504, // Change to the height of your default share image
-  siteLogo: '/logos/app-icon.png', // Logo used for SEO, RSS, and App manifest
-  logo: '/logos/logo_40pt.png', // Logo used for SEO, RSS, and App manifest
+  siteLogo: '/logos/MC_logo_circle.png', // Logo used for SEO, RSS, and App manifest
+  logo: '/logos/MC_logo.png', // Logo used for SEO, RSS, and App manifest
   backgroundColor: '#140d00', // Used for Offline Manifest
   themeColor: '#f6f5f5', // Used for Offline Manifest
   copyright: 'Copyright © 2019 Mayeul Chassagnard', // Copyright string for the RSS feed

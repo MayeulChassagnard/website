@@ -3,8 +3,8 @@ import Helmet from 'react-helmet'
 
 const defaultTitle = 'Mayeul Chassagnard'
 const defaultDescription =
-  'Photographer and digital marketer based in Southern California'
-const defaultImage = 'https://mayeulchassagnard.com/share/shareIndex.jpg'
+  'Photographer, Movie Editor and VFX Engineer from Lyon based in Nantes & Paris'
+const defaultImage = 'https://mayeulchassagnard.com/share/shareIndex.png'
 
 const SEO = props => (
   <Helmet>
