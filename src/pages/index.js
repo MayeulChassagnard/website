@@ -4,6 +4,8 @@ import { Wrapper, Content, ContentBottom } from '../components/Utils'
 import List from '../components/contentList'
 import SEO from '../components/SEO'
 import Arrow from '../components/Arrow'
+import { FiInstagram, FiYoutube, FiCamera } from 'react-icons/fi'
+
 
 const Index = ({ data }) => {
   const home = data.contentfulHome
@@ -14,12 +16,19 @@ const Index = ({ data }) => {
       <Wrapper>
         <Content>
           <section>
-            <h1>{home.headline}</h1>
+            <h2>{home.headline}</h2>
             <article
               dangerouslySetInnerHTML={{
                 __html: home.body.childMarkdownRemark.html,
               }}
             />
+            <p className="small">
+              <a href="https://www.flickr.com/photos/mayeulchassagnard/"><FiCamera />{' '}</a>
+              &nbsp;&nbsp;&nbsp;
+              <a href="https://instagram.com/mayeulchassagnard"><FiInstagram />{' '}</a>
+              &nbsp;&nbsp;&nbsp;
+              <a href="https://www.youtube.com/playlist?list=PLF4JkPm1waWLrslI1A7uTNCuaKcGYhUIg"><FiYoutube />{' '}</a>
+            </p>
             <Arrow anchor="/#bottom" />
           </section>
         </Content>
