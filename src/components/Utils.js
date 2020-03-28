@@ -34,6 +34,32 @@ export const Content = styled.div`
     }
   }
 `
+
+export const ContentMiddle = styled.div`
+
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+
+  &.iframe-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+  }
+
+  &.iframe-container iframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+`
 export const ContentBottom = styled.div`
   display: flex;
   min-height: 100vh;

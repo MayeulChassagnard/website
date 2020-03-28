@@ -41,11 +41,10 @@ const Menu = props => {
         <section>
           <Logo />
           <p>
-            <Link to="/">Galleries</Link>&nbsp;&nbsp;&nbsp;
+            {/* <Link to="/">Galleries</Link>&nbsp;&nbsp;&nbsp; */}
             <Link to="/blog">Blog</Link>&nbsp;&nbsp;&nbsp;
-            <Link to="/contact" className="hide-inline">
-              Contact
-            </Link>
+            <Link to="/contact">Contact</Link>
+            {/* <Link to="/contact" className="hide-inline">Contact</Link> */}
           </p>
         </section>
       </Content>
