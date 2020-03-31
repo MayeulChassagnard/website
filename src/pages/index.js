@@ -37,7 +37,7 @@ const Index = ({ data }) => {
           <section>
             <a href="https://www.youtube.com/playlist?list=PLF4JkPm1waWLrslI1A7uTNCuaKcGYhUIg"><h3><FiYoutube />{' '}</h3></a>
             <div className="iframe-container" >
-              <iframe id="youtube" width="300" height="200" src={home.youtubeLink} frameborder="0" allowFullScreen="true"></iframe>
+              <iframe width="100%" src={home.youtubeLink} frameBorder="0" allowFullScreen="true"></iframe>
             </div>
           </section>
           {/* <Arrow anchor="/#instagram" /> */}
