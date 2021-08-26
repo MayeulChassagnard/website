@@ -45,7 +45,9 @@ const Index = ({ data }) => {
         </ContentMiddle>
         <ContentMiddle id="flickr">
           <a href="https://www.flickr.com/photos/mayeulchassagnard/"><h3><FiCamera />{' '}</h3></a>
-          <a data-flickr-embed="true" data-context="true" data-header="true" href={home.flickrLink} title="Shooting by mayeulchassagnard, on Flickr"><img src={home.flickrStaticImg} width="100%" alt="Shooting"></img></a><script async src="https://embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+          <div className="video-container" >
+            <iframe src={home.flickrLink} scrolling="no" frameborder="0" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"><p><a  href="https://www.compareboilercover.co.uk">the website for cheaper boiler care comparison</a></p><small>Powered by <a href="https://flickrembed.com">flickr embed</a>.</small></iframe>
+          </div>
         </ContentMiddle>
         <ContentBottom className="galleries">
           <h3>{'Galleries'}</h3>
