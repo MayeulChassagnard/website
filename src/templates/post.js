@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { graphql, Link } from 'gatsby'
+import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from '@mdx-js/react'
-import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer'
 
 import mediumZoom from 'medium-zoom'
 
@@ -59,14 +59,20 @@ const BlogPost = ({ data, pageContext, location }) => {
         <ContentBottom className="blogpost">
           <section className="article" id="bottom">
             <Hero image={post.heroImage} />
-
-            <MDXProvider
+            <p>
+            <article
+              dangerouslySetInnerHTML={{
+                __html: post.body.childMarkdownRemark.html,
+              }}
+            />
+            </p>
+            {/* <MDXProvider
               components={{
                 ...MDXGlobalComponents,
               }}
             >
-              <MDXRenderer>{post.body.childMdx.body}</MDXRenderer>
-            </MDXProvider>
+              <MDXRenderer>{post.body}</MDXRenderer>
+            </MDXProvider> */}
             <Buttons>
               {previous && (
                 <Link className="button" to={`/blog/${previous.slug}/`}>
@@ -120,10 +126,6 @@ export const query = graphql`
       }
 
       body {
-        childMdx {
-          body
-          id
-        }
         childMarkdownRemark {
           html
           excerpt(pruneLength: 320)
