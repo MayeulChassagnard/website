@@ -36,7 +36,7 @@ const Index = ({ data }) => {
         <ContentMiddle id="youtube" >
             <a href="https://www.youtube.com/playlist?list=PLF4JkPm1waWLrslI1A7uTNCuaKcGYhUIg"><h3><FiYoutube />{' '}</h3></a>
             <div className="video-container" >
-              <iframe src={home.youtubeLink} width="1100" height="537" frameborder="0" scrolling="no" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe src={home.youtubeLink} width="1100" height="537" frameborder="0" scrolling="no" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" ></iframe>
             </div>
         </ContentMiddle>
         <ContentMiddle id="instagram">
