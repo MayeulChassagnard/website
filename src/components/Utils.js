@@ -37,28 +37,31 @@ export const Content = styled.div`
 
 export const ContentMiddle = styled.div`
 
-  display: flex;
+  // display: flex;
   min-height: 100vh;
-  flex-direction: column;
+  // flex-direction: column;
   align-items: center;
   text-align: center;
   justify-content: center;
+  padding-left: 5%;
+  padding-right: 5%;
 
-  &.iframe-container {
+  .video-container{
     position: relative;
-    width: 100%;
+    overflow: hidden;
     padding-bottom: 56.25%;
+    padding-top: 30px;
+    max-width: 100%;
     height: 0;
   }
 
-  &.iframe-container iframe{
+  .video-container iframe{
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
   }
-
 `
 export const ContentBottom = styled.div`
   display: flex;

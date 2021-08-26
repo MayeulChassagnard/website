@@ -33,32 +33,19 @@ const Index = ({ data }) => {
             <Arrow anchor="/#youtube" />
           </section>
         </Content>
-        <ContentMiddle id="youtube">
-          <section>
+        <ContentMiddle id="youtube" >
             <a href="https://www.youtube.com/playlist?list=PLF4JkPm1waWLrslI1A7uTNCuaKcGYhUIg"><h3><FiYoutube />{' '}</h3></a>
-            <div className="iframe-container" >
-              <iframe width="100%" src={home.youtubeLink} frameBorder="0" allowFullScreen="true"></iframe>
+            <div className="video-container" >
+              <iframe src={home.youtubeLink} width="1100" height="537" frameborder="0" scrolling="no" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-          </section>
-          {/* <Arrow anchor="/#instagram" /> */}
         </ContentMiddle>
         <ContentMiddle id="instagram">
-          <section>
             <a href="https://instagram.com/mayeulchassagnard"><h3><FiInstagram />{' '}</h3></a>
-            <div className="iframe-container" >
               <iframe src={home.instagramLink} width="320" height="540" frameborder="0" scrolling="no" allowTransparency="true"></iframe>
-            </div>
-          </section>
-          {/* <Arrow anchor="/#flickr" /> */}
         </ContentMiddle>
         <ContentMiddle id="flickr">
-          <section>
           <a href="https://www.flickr.com/photos/mayeulchassagnard/"><h3><FiCamera />{' '}</h3></a>
-            <div className="iframe-container" >
-              <a data-flickr-embed="true" data-context="true" data-header="true" href={home.flickrLink} title="Shooting by mayeulchassagnard, on Flickr"><img src={home.flickrStaticImg} width="100%" alt="Shooting"></img></a><script async src="https://embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
-            </div>
-          </section>
-          {/* <Arrow anchor="/#galleries" /> */}
+          <a data-flickr-embed="true" data-context="true" data-header="true" href={home.flickrLink} title="Shooting by mayeulchassagnard, on Flickr"><img src={home.flickrStaticImg} width="100%" alt="Shooting"></img></a><script async src="https://embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
         </ContentMiddle>
         <ContentBottom className="galleries">
           <h3>{'Galleries'}</h3>
