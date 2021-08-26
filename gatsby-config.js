@@ -33,7 +33,6 @@ module.exports = {
     'gatsby-plugin-flow',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
-    'gatsby-plugin-sharp',
     'gatsby-plugin-catch-links',
     {
       resolve: `gatsby-plugin-mdx`,
