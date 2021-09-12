@@ -7,6 +7,8 @@ import Styles from './Styles'
 import Menu from './Menu'
 import Footer from './Footer'
 
+import '@stripe/stripe-js' // https://github.com/stripe/stripe-js#import-as-a-side-effect
+
 if (typeof window !== 'undefined') {
   // eslint-disable-next-line global-require
   require('smooth-scroll')('a[href*="#"]')

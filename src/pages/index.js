@@ -4,7 +4,9 @@ import { Wrapper, Content, ContentMiddle, ContentBottom } from '../components/Ut
 import List from '../components/contentList'
 import SEO from '../components/SEO'
 import Arrow from '../components/Arrow'
+import Checkout from '../components/checkout'
 import { FiInstagram, FiYoutube, FiCamera } from 'react-icons/fi'
+import Products from '../components/Products/Products'
 
 
 const Index = ({ data }) => {
@@ -41,7 +43,7 @@ const Index = ({ data }) => {
         </ContentMiddle>
         <ContentMiddle id="instagram">
             <a href="https://instagram.com/mayeulchassagnard"><h3><FiInstagram />{' '}</h3></a>
-              <iframe src={home.instagramLink} width="320" height="540" frameborder="0" scrolling="no" allowTransparency="true"></iframe>
+            <iframe src={home.instagramLink} width="320" height="540" frameborder="0" scrolling="no" allowTransparency="true"></iframe>
         </ContentMiddle>
         <ContentMiddle id="flickr">
           <a href="https://www.flickr.com/photos/mayeulchassagnard/"><h3><FiCamera />{' '}</h3></a>
@@ -65,6 +67,12 @@ const Index = ({ data }) => {
             ))}
           </section>
         </ContentBottom>
+
+        <section id="buy">
+          {/* <Checkout /> */}
+          <Products />
+        </section>
+
       </Wrapper>
     </>
   )

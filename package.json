@@ -6,6 +6,7 @@
   "author": "Mayeul Chassagnard <hello@mayeulchassagnard.com>",
   "dependencies": {
     "@raae/gatsby-remark-oembed": "^0.1.1",
+    "@stripe/stripe-js": "^1.0.1",
     "babel-plugin-styled-components": "^1.10.6",
     "contentful-import": "^7.6.2",
     "framer-motion": "^1.6.14",
@@ -39,6 +40,7 @@
     "gatsby-remark-responsive-iframe": "^2.2.25",
     "gatsby-source-contentful": "^2.1.67",
     "gatsby-source-filesystem": "^2.1.33",
+    "gatsby-source-stripe": "^3.2.2",
     "gatsby-transformer-remark": "^2.6.30",
     "history": "^4.9.0",
     "inquirer": "^6.5.1",
@@ -58,6 +60,7 @@
     "react-youtube": "^7.9.0",
     "rebass": "^3.2.2",
     "smooth-scroll": "^16.1.0",
+    "stripe": "^8.170.0",
     "styled-components": "^4.3.2",
     "typography": "^0.16.19",
     "typography-breakpoint-constants": "^0.16.19",
