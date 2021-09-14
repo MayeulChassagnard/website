@@ -56,8 +56,8 @@ const ProductCard = ({ product }) => {
     // find correct payment Mode
     let payMode = 'payment'
     for( const p of product.prices) {
-      if( p.id == price ) {
-        payMode = p.recurring == null ? 'payment' : 'subscription'
+      if( p.id === price ) {
+        payMode = p.recurring === null ? 'payment' : 'subscription'
       }
     }
     
