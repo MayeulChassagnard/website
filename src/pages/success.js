@@ -17,7 +17,7 @@ const successPage = ({ data }) => {
         </section>
       </Buttons>
       <Buttons>
-        <Link className="button" to="/#buy" >Shop again</Link>
+        <Link className="button" to="/#buy">Shop again</Link>
       </Buttons>
     </Wrapper>
   </>

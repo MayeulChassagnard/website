@@ -1,8 +1,6 @@
-# [Mayeul Chassagnard's website](https://mayeulchassagnard.com)
-
 [![Netlify Status](https://api.netlify.com/api/v1/badges/2d59365f-783d-430c-8c5f-2e43b99141dc/deploy-status)](https://app.netlify.com/sites/mayeulchassagnard/deploys) [![Maintainability](https://api.codeclimate.com/v1/badges/51747ba4dda710f7f4ab/maintainability)](https://codeclimate.com/github/MayeulChassagnard/website/maintainability) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/93fc960481464296bc194f58894b04e1)](https://www.codacy.com/manual/MayeulChassagnard/website?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MayeulChassagnard/website&amp;utm_campaign=Badge_Grade)
 
----
+# [Mayeul Chassagnard's website](https://mayeulchassagnard.com)
 
 © All images and content Copyright 2019 Mayeul Chassagnard, All Rights Reserved
 

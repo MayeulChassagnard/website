@@ -14,7 +14,7 @@ const Checkout = () => {
       mode: 'payment',
       lineItems: [{ price: process.env.GATSBY_BUTTON_PRICE_ID, quantity: 1 }],
       successUrl: `${window.location.origin}/success/`,
-      cancelUrl: `${window.location.origin}/`,
+      cancelUrl: `${window.location.origin}/#buy`,
     })
 
     if (error) {
