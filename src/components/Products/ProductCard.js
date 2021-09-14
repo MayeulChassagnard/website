@@ -34,8 +34,8 @@ const buttonDisabledStyles = {
 }
 
 const formatPrice = (amount, currency) => {
-  let price = (amount / 100).toFixed(2)
-  let numberFormat = new Intl.NumberFormat(['fr-FR'], {
+  const price = (amount / 100).toFixed(2)
+  const numberFormat = new Intl.NumberFormat(['fr-FR'], {
     style: 'currency',
     currency: currency,
     currencyDisplay: 'symbol',
@@ -52,8 +52,17 @@ const ProductCard = ({ product }) => {
 
     const price = new FormData(event.target).get('priceSelect')
     const stripe = await getStripe()
-    const { error } = await stripe.redirectToCheckout({
-      mode: price.recurring === null ? 'payment' : 'subscription',
+
+    // find correct payment Mode
+    let payMode = 'payment'
+    for( const p of product.prices) {
+      if( p.id == price ) {
+        payMode = p.recurring == null ? 'payment' : 'subscription'
+      }
+    }
+    
+    const error = await stripe.redirectToCheckout({
+      mode: payMode,
       lineItems: [{ price, quantity: 1 }],
       successUrl: `${window.location.origin}/success/`,
       cancelUrl: `${window.location.origin}/`,

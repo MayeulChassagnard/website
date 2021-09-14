@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 
-import { Wrapper, Content, Buttons } from '../components/Utils'
+import { Wrapper, Buttons } from '../components/Utils'
 import SEO from '../components/SEO'
 
 const successPage = ({ data }) => {

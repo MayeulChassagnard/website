@@ -17,24 +17,23 @@ const Products = () => {
         query ProductPrices {
           prices: allStripePrice(
             filter: { active: { eq: true } }
-            sort: { fields: [unit_amount] }
-          ) {
-            edges {
-              node {
-                id
-                active
-                currency
-                unit_amount
-                product {
+            sort: { fields: [unit_amount] } ) {
+              edges {
+                node {
                   id
-                  name
-                  images
-                }
-                recurring {
-                  interval
+                  active
+                  currency
+                  unit_amount
+                  product {
+                    id
+                    name
+                    images
+                  }
+                  recurring {
+                    interval
+                  }
                 }
               }
-            }
           }
         }
       `}

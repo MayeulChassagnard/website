@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'gatsby'
 import { Wrapper, Content } from './Utils'
 import { FiTwitter, FiInstagram, FiYoutube, FiCamera, FiGithub, FiLinkedin } from 'react-icons/fi'
-import stripeLogo from '../images/powered_by_stripe.svg'
 
 const Footer = props => {
   return (
@@ -71,7 +70,18 @@ const Footer = props => {
             </a>
             &nbsp;&nbsp;&nbsp;
             <a href="https://www.stripe.com">
-              <img src={stripeLogo} alt="Payments powered by Stripe" />
+              <picture>
+                  <source
+                    srcSet="/share/powered_by_stripe.svg"
+                    media="(prefers-color-scheme: dark)"
+                  />
+                  <img
+                    src="/share/powered_by_stripe.svg"
+                    rel="contentful"
+                    style={{ width: '100px' }}
+                    alt="Payments powered by Stripe"
+                  />
+                </picture>
             </a>
           </p>
           <p>Based on   

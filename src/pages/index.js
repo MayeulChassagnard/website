@@ -4,9 +4,9 @@ import { Wrapper, Content, ContentMiddle, ContentBottom } from '../components/Ut
 import List from '../components/contentList'
 import SEO from '../components/SEO'
 import Arrow from '../components/Arrow'
-import Checkout from '../components/checkout'
 import { FiInstagram, FiYoutube, FiCamera } from 'react-icons/fi'
 import Products from '../components/Products/Products'
+// import Checkout from '../components/checkout'
 
 
 const Index = ({ data }) => {
@@ -48,7 +48,7 @@ const Index = ({ data }) => {
         <ContentMiddle id="flickr">
           <a href="https://www.flickr.com/photos/mayeulchassagnard/"><h3><FiCamera />{' '}</h3></a>
           <div className="video-container" >
-            <iframe src={home.flickrLink} scrolling="no" frameborder="0" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"><p><a  href="https://www.compareboilercover.co.uk">the website for cheaper boiler care comparison</a></p><small>Powered by <a href="https://flickrembed.com">flickr embed</a>.</small></iframe>
+            <iframe src={home.flickrLink} scrolling="no" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"><p><a  href="https://www.compareboilercover.co.uk">the website for cheaper boiler care comparison</a></p><small>Powered by <a href="https://flickrembed.com">flickr embed</a>.</small></iframe>
           </div>
         </ContentMiddle>
         <ContentBottom className="galleries">
