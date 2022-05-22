@@ -58,11 +58,11 @@ const Footer = props => {
             >
               <picture>
                 <source
-                  srcSet="https://www.netlify.com/img/press/logos/full-logo-dark.svg"
+                  srcSet="https://www.netlify.com/v3/img/components/full-logo-dark.svg"
                   media="(prefers-color-scheme: dark)"
                 />
                 <img
-                  src="https://www.netlify.com/img/press/logos/full-logo-light.svg"
+                  src="https://www.netlify.com/v3/img/components/full-logo-light.svg"
                   rel="netlify"
                   style={{ width: '100px' }}
                   alt="Netlify"
