@@ -28,3 +28,9 @@ Portfolio site built using Gatsby + Contentful + Netlify. Features photography g
 - PWA
 - Offline support
 - Dark mode
+
+## Run code
+
+`gatsby build`
+
+`gatsby develop`

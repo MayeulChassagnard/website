@@ -8,3 +8,4 @@ contentful-import-error-log*
 .contentful.json
 package-lock.json
 css.scss
+*.code-workspace
