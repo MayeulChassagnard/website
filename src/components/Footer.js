@@ -11,6 +11,7 @@ const Footer = props => {
           <h2>-</h2>
           <p>
             <Link to="/">Home</Link>&nbsp;&nbsp;&nbsp;
+            <Link to="https://mayeulchassagnard.pixieset.com/">Collections</Link>&nbsp;&nbsp;&nbsp;
             <Link to="/blog">Blog</Link>&nbsp;&nbsp;&nbsp;
             <Link to="/contact">Contact</Link>
           </p>
