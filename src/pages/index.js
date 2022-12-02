@@ -30,7 +30,7 @@ const Index = ({ data }) => {
               &nbsp;&nbsp;&nbsp;
               <a href="https://instagram.com/mayeulchassagnard"><FiInstagram />{' '}</a>
               &nbsp;&nbsp;&nbsp;
-              <a href="https://www.youtube.com/playlist?list=PLF4JkPm1waWLrslI1A7uTNCuaKcGYhUIg"><FiYoutube />{' '}</a>
+              <a href="https://www.youtube.com/@mayeulchassagnard"><FiYoutube />{' '}</a>
             </p>
             <Arrow anchor="/#youtube" />
           </section>

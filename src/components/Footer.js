@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import { Wrapper, Content } from './Utils'
-import { FiTwitter, FiInstagram, FiYoutube, FiCamera, FiGithub, FiLinkedin } from 'react-icons/fi'
+import { FiInstagram, FiYoutube, FiCamera, FiGithub, FiLinkedin } from 'react-icons/fi'
 
 const Footer = props => {
   return (
@@ -11,7 +11,7 @@ const Footer = props => {
           <h2>-</h2>
           <p>
             <Link to="/">Home</Link>&nbsp;&nbsp;&nbsp;
-            <Link to="https://mayeulchassagnard.pixieset.com/">Collections</Link>&nbsp;&nbsp;&nbsp;
+            <a href="https://mayeulchassagnard.pixieset.com/">Collections</a>&nbsp;&nbsp;&nbsp;
             <Link to="/blog">Blog</Link>&nbsp;&nbsp;&nbsp;
             <Link to="/contact">Contact</Link>
           </p>
@@ -23,7 +23,7 @@ const Footer = props => {
             &nbsp;&nbsp;&nbsp;
             <a href="https://instagram.com/mayeulchassagnard"><FiInstagram />{' '}</a>
             &nbsp;&nbsp;&nbsp;
-            <a href="https://www.youtube.com/channel/UC7jFlzmU5oltkxkj_11TrnA"><FiYoutube />{' '}</a>
+            <a href="https://www.youtube.com/@mayeulchassagnard"><FiYoutube />{' '}</a>
             &nbsp;&nbsp;&nbsp;
             <a href="https://github.com/MayeulChassagnard/"><FiGithub />{' '}</a>
             &nbsp;&nbsp;&nbsp;

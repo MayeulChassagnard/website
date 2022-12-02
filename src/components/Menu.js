@@ -42,7 +42,7 @@ const Menu = props => {
           <Logo />
           <p>
             {/* <Link to="/">Galleries</Link>&nbsp;&nbsp;&nbsp; */}
-            <Link to="https://mayeulchassagnard.pixieset.com/">Collections</Link>&nbsp;&nbsp;&nbsp;
+            <a href="https://mayeulchassagnard.pixieset.com/">Collections</a>&nbsp;&nbsp;&nbsp;
             <Link to="/blog">Blog</Link>&nbsp;&nbsp;&nbsp;
             <Link to="/contact">Contact</Link>
             {/* <Link to="/contact" className="hide-inline">Contact</Link> */}
