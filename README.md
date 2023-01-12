@@ -29,8 +29,8 @@ Portfolio site built using Gatsby + Contentful + Netlify. Features photography g
 - Offline support
 - Dark mode
 
-## Run code
+## Code Tips
 
-`gatsby build`
-
-`gatsby develop`
+* `yarn dev` : run the website locally
+* `yarn upgrade/add/remove [package][@version/latest]` to update/add/remove
+* `yarn install` : Following a package.json modification
