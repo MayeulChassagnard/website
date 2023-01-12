@@ -42,7 +42,7 @@
     "gatsby-source-contentful": "^2.1.67",
     "gatsby-source-filesystem": "^2.1.33",
     "gatsby-source-stripe": "^3.2.2",
-    "gatsby-transformer-remark": "^2.6.30",
+    "gatsby-transformer-remark": "^5.25.1",
     "history": "^4.9.0",
     "inquirer": "^6.5.1",
     "intersection-observer": "^0.7.0",
