@@ -60,11 +60,11 @@ const BlogPost = ({ data, pageContext, location }) => {
           <section className="article" id="bottom">
             <Hero image={post.heroImage} />
             <p>
-            <article
-              dangerouslySetInnerHTML={{
-                __html: post.body.childMarkdownRemark.html,
-              }}
-            />
+              <article
+                dangerouslySetInnerHTML={{
+                  __html: post.body.childMarkdownRemark.html,
+                }}
+              />
             </p>
             {/* <MDXProvider
               components={{
