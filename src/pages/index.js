@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import { OutboundLink } from 'gatsby-plugin-google-gtag'
 import { Wrapper, Content, ContentMiddle, ContentBottom } from '../components/Utils'
 import List from '../components/contentList'
 import SEO from '../components/SEO'
@@ -26,27 +27,27 @@ const Index = ({ data }) => {
               }}
             />
             <p className="small">
-              <a href="https://www.flickr.com/photos/mayeulchassagnard/"><FiCamera />{' '}</a>
+              <OutboundLink href="https://www.flickr.com/photos/mayeulchassagnard/"><FiCamera />{' '}</OutboundLink>
               &nbsp;&nbsp;&nbsp;
-              <a href="https://instagram.com/mayeulchassagnard"><FiInstagram />{' '}</a>
+              <OutboundLink href="https://instagram.com/mayeulchassagnard"><FiInstagram />{' '}</OutboundLink>
               &nbsp;&nbsp;&nbsp;
-              <a href="https://www.youtube.com/@mayeulchassagnard"><FiYoutube />{' '}</a>
+              <OutboundLink href="https://www.youtube.com/@mayeulchassagnard"><FiYoutube />{' '}</OutboundLink>
             </p>
             <Arrow anchor="/#youtube" />
           </section>
         </Content>
         <ContentMiddle id="youtube" >
-            <a href="https://www.youtube.com/playlist?list=PLF4JkPm1waWLrslI1A7uTNCuaKcGYhUIg"><h3><FiYoutube />{' '}</h3></a>
+            <OutboundLink href="https://www.youtube.com/playlist?list=PLF4JkPm1waWLrslI1A7uTNCuaKcGYhUIg"><h3><FiYoutube />{' '}</h3></OutboundLink>
             <div className="video-container" >
               <iframe src={home.youtubeLink} width="1100" height="537" frameBorder="0" scrolling="no" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" ></iframe>
             </div>
         </ContentMiddle>
         <ContentMiddle id="instagram">
-            <a href="https://instagram.com/mayeulchassagnard"><h3><FiInstagram />{' '}</h3></a>
+            <OutboundLink href="https://instagram.com/mayeulchassagnard"><h3><FiInstagram />{' '}</h3></OutboundLink>
             <iframe src={home.instagramLink} width="320" height="540" frameBorder="0" scrolling="no" allowTransparency="true"></iframe>
         </ContentMiddle>
         <ContentMiddle id="flickr">
-          <a href="https://www.flickr.com/photos/mayeulchassagnard/"><h3><FiCamera />{' '}</h3></a>
+          <OutboundLink href="https://www.flickr.com/photos/mayeulchassagnard/"><h3><FiCamera />{' '}</h3></OutboundLink>
           <div className="video-container" >
             <iframe src={home.flickrLink} frameBorder="0" scrolling="no" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"><p><a  href="https://www.compareboilercover.co.uk">the website for cheaper boiler care comparison</a></p><small>Powered by <a href="https://flickrembed.com">flickr embed</a>.</small></iframe>
           </div>

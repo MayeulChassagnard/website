@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import { Wrapper, Content } from './Utils'
 import { FiInstagram, FiYoutube, FiCamera, FiGithub, FiLinkedin } from 'react-icons/fi'
+import { OutboundLink } from 'gatsby-plugin-google-gtag'
 
 const Footer = props => {
   return (
@@ -11,7 +12,7 @@ const Footer = props => {
           <h2>-</h2>
           <p>
             <Link to="/">Home</Link>&nbsp;&nbsp;&nbsp;
-            <a href="https://mayeulchassagnard.pixieset.com/">Collections</a>&nbsp;&nbsp;&nbsp;
+            <OutboundLink href="https://mayeulchassagnard.pixieset.com/">Collections</OutboundLink>&nbsp;&nbsp;&nbsp;
             <Link to="/blog">Blog</Link>&nbsp;&nbsp;&nbsp;
             <Link to="/contact">Contact</Link>
           </p>
@@ -19,15 +20,15 @@ const Footer = props => {
             @mayeulchassagnard
           </p>
           <p className="small">
-            <a href="https://www.flickr.com/photos/mayeulchassagnard/"><FiCamera />{' '}</a>
+            <OutboundLink href="https://www.flickr.com/photos/mayeulchassagnard/"><FiCamera />{' '}</OutboundLink>
             &nbsp;&nbsp;&nbsp;
-            <a href="https://instagram.com/mayeulchassagnard"><FiInstagram />{' '}</a>
+            <OutboundLink href="https://instagram.com/mayeulchassagnard"><FiInstagram />{' '}</OutboundLink>
             &nbsp;&nbsp;&nbsp;
-            <a href="https://www.youtube.com/@mayeulchassagnard"><FiYoutube />{' '}</a>
+            <OutboundLink href="https://www.youtube.com/@mayeulchassagnard"><FiYoutube />{' '}</OutboundLink>
             &nbsp;&nbsp;&nbsp;
-            <a href="https://github.com/MayeulChassagnard/"><FiGithub />{' '}</a>
+            <OutboundLink href="https://github.com/MayeulChassagnard/"><FiGithub />{' '}</OutboundLink>
             &nbsp;&nbsp;&nbsp;
-            <a href="https://www.linkedin.com/in/mayeulchassagnard/"><FiLinkedin />{' '}</a>
+            <OutboundLink href="https://www.linkedin.com/in/mayeulchassagnard/"><FiLinkedin />{' '}</OutboundLink>
           </p>
           <p>
             <a
