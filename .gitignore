@@ -1,11 +1,13 @@
 node_modules
-.cache/
-public/
 .DS_Store
 *.log
 contentful-import-error-log*
+contentful-backup/
 .env*
 .contentful.json
-package-lock.json
-css.scss
 *.code-workspace
+
+# Next.js (public/ is now the committed static-assets source, not build output)
+.next/
+next-env.d.ts
+*.tsbuildinfo
