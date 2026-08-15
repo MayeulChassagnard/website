@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
+import AssemblyHero from '@/components/hero/AssemblyHero'
 import { getHome } from '@/lib/contentful/queries'
+import { getMediaPool } from '@/lib/media/pool'
 import { buildMetadata, excerpt } from '@/lib/seo'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -51,22 +52,22 @@ export default async function Home() {
     )
   }
 
+  const pool = await getMediaPool()
+  const images = pool.map(media => media.proxyUrl)
+
   return (
-    <section className="mx-auto max-w-4xl px-6 py-24">
-      {home.heroImage && (
-        <Image
-          src={home.heroImage.url}
-          alt={home.heroImage.title}
-          width={home.heroImage.width ?? 1600}
-          height={home.heroImage.height ?? 900}
-          className="mb-10 w-full rounded-sm object-cover"
-          priority
-        />
-      )}
-      <h1 className="text-3xl font-semibold">{home.headline}</h1>
-      <div className="prose prose-neutral mt-6 max-w-none dark:prose-invert">
-        <ReactMarkdown>{home.body}</ReactMarkdown>
-      </div>
-    </section>
+    <>
+      <AssemblyHero
+        headline={home.headline}
+        fallbackImageSrc={home.heroImage?.url ?? '/share/shareIndex.png'}
+        fallbackImageAlt={home.heroImage?.title ?? home.headline}
+        images={images}
+      />
+      <section className="mx-auto max-w-4xl px-6 py-24">
+        <div className="prose prose-neutral max-w-none dark:prose-invert">
+          <ReactMarkdown>{home.body}</ReactMarkdown>
+        </div>
+      </section>
+    </>
   )
 }
