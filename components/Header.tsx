@@ -18,6 +18,7 @@ export default function Header() {
             width={140}
             height={40}
             className="logo h-8 w-auto"
+            unoptimized
             priority
           />
         </Link>

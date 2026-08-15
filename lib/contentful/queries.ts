@@ -11,7 +11,7 @@ import type { About, BlogPage, ExtendedGallery, Home, Post, SubGallery, Tag } fr
 /**
  * Content type API IDs, inferred from the old Gatsby GraphQL type names
  * (ContentfulHome -> "home", ContentfulExtendedGallery -> "extendedGallery",
- * etc). Gatsby's schema-generation convention is reliable but not proof —
+ * etc). Gatsby's schema-generation convention is reliable but not proof:
  * confirm these against Settings -> Content model in the real space before
  * relying on this in Phase 1 (see plan Phase 0).
  */
@@ -31,7 +31,7 @@ function resolveTags(link: unknown, includes?: CdaResponse['includes']): Tag[] {
   }))
 }
 
-export async function getHome(): Promise<Home | undefined> {
+export const getHome = cache(async (): Promise<Home | undefined> => {
   const res = await fetchEntries<{
     headline: string
     body: string
@@ -56,9 +56,9 @@ export async function getHome(): Promise<Home | undefined> {
     flickrLink: entry.fields.flickrLink,
     flickrStaticImg: entry.fields.flickrStaticImg,
   }
-}
+})
 
-export async function getBlogPage(): Promise<BlogPage | undefined> {
+export const getBlogPage = cache(async (): Promise<BlogPage | undefined> => {
   const res = await fetchEntries<{
     title: string
     heroImage?: unknown
@@ -75,7 +75,7 @@ export async function getBlogPage(): Promise<BlogPage | undefined> {
     shareImage: resolveAsset(entry.fields.shareImage, res.includes),
     body: entry.fields.body,
   }
-}
+})
 
 /** Wrapped in React's cache() so generateStaticParams and page render share one fetch. */
 export const getAllPosts = cache(async (): Promise<Post[]> => {
@@ -129,7 +129,7 @@ export const getAllGallerySlugs = cache(async (): Promise<string[]> => {
   return res.items.map(entry => entry.fields.slug)
 })
 
-export async function getGalleryBySlug(slug: string): Promise<ExtendedGallery | undefined> {
+export const getGalleryBySlug = cache(async (slug: string): Promise<ExtendedGallery | undefined> => {
   const res = await fetchEntries<{
     title: string
     slug: string
@@ -170,9 +170,9 @@ export async function getGalleryBySlug(slug: string): Promise<ExtendedGallery | 
     body: entry.fields.body,
     galleries,
   }
-}
+})
 
-export async function getAbout(): Promise<About | undefined> {
+export const getAbout = cache(async (): Promise<About | undefined> => {
   const res = await fetchEntries<{
     title: string
     headline?: string
@@ -191,7 +191,7 @@ export async function getAbout(): Promise<About | undefined> {
     shareImage: resolveAsset(entry.fields.shareImage, res.includes),
     body: entry.fields.body,
   }
-}
+})
 
 /**
  * Guards against a Contentful editor typing a gallery slug that collides

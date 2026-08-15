@@ -1,6 +1,6 @@
 /**
  * Thin wrapper over the Contentful Content Delivery API using native `fetch`
- * (not the `contentful` SDK — the SDK doesn't reliably route through Next's
+ * (not the `contentful` SDK: it doesn't reliably route through Next's
  * patched fetch, which breaks the Full Route Cache and revalidateTag()).
  */
 

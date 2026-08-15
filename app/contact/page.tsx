@@ -2,8 +2,17 @@ import type { Metadata } from 'next'
 import ReactMarkdown from 'react-markdown'
 import ContactForm from '@/components/ContactForm'
 import { getAbout } from '@/lib/contentful/queries'
+import { buildMetadata, excerpt } from '@/lib/seo'
 
-export const metadata: Metadata = { title: 'Contact' }
+export async function generateMetadata(): Promise<Metadata> {
+  const about = await getAbout().catch(() => undefined)
+  return buildMetadata({
+    title: 'Contact',
+    description: about?.body ? excerpt(about.body) : undefined,
+    image: about?.shareImage,
+    path: '/contact',
+  })
+}
 
 export default async function ContactPage() {
   let about
@@ -11,7 +20,7 @@ export default async function ContactPage() {
     about = await getAbout()
   } catch {
     // Contentful not configured yet locally, or the "about" content type ID
-    // doesn't match — the form below still works either way.
+    // doesn't match, the form below still works either way.
   }
 
   return (

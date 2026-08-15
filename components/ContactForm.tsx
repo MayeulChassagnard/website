@@ -12,7 +12,7 @@ function encode(data: Record<string, string>) {
  * Netlify Forms detection is build-time, static-HTML based: it scans the
  * prerendered markup for data-netlify="true" plus the hidden form-name
  * input. Both must be present in what this page ships as static HTML (no
- * force-dynamic on the page), and the submit must stay a plain fetch POST —
+ * force-dynamic on the page), and the submit must stay a plain fetch POST:
  * routing it through a Next.js Route Handler would hand it to Next's server
  * instead of letting Netlify's own forms backend intercept it.
  */

@@ -1,6 +1,20 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import { getHome } from '@/lib/contentful/queries'
+import { buildMetadata, excerpt } from '@/lib/seo'
+
+export async function generateMetadata(): Promise<Metadata> {
+  const home = await getHome().catch(() => undefined)
+  if (!home) return {}
+
+  return buildMetadata({
+    title: 'Mayeul Chassagnard',
+    description: excerpt(home.body),
+    image: home.shareImage ?? home.heroImage,
+    path: '/',
+  })
+}
 
 export default async function Home() {
   let home
@@ -41,7 +55,7 @@ export default async function Home() {
     <section className="mx-auto max-w-4xl px-6 py-24">
       {home.heroImage && (
         <Image
-          src={`${home.heroImage.url}?w=1600&q=70&fm=webp`}
+          src={home.heroImage.url}
           alt={home.heroImage.title}
           width={home.heroImage.width ?? 1600}
           height={home.heroImage.height ?? 900}
