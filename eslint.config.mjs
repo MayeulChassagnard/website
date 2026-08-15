@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Archived Gatsby app, kept for reference until Phase 1 content parity
+    // is confirmed, not part of the active codebase.
+    "legacy-gatsby/**",
+    // Standalone CommonJS Node script, run via `node`, not part of the app bundle.
+    "bin/**",
   ]),
 ]);
 
