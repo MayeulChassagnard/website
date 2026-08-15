@@ -1,22 +1,32 @@
 import { cache } from 'react'
-import { FLICKR_PHOTO_URLS, INSTAGRAM_POST_URLS, YOUTUBE_VIDEO_URLS } from './curated'
-import { resolveFlickrImage, resolveInstagramImage, resolveYouTubeThumbnail, type ResolvedMedia } from './resolve'
+import { CURATED_MEDIA, type MediaSource } from './curated'
+import { RESOLVERS } from './resolve'
+
+export interface PoolItem {
+  id: string
+  proxyUrl: string
+  alt: string
+  source: MediaSource
+}
 
 /**
  * Resolves every curated link in parallel and drops whatever failed
  * (removed post, network hiccup, expired link) instead of failing the
- * whole page. Meant for decorative use (hero texture pool), never content
- * a visitor is specifically looking for.
+ * whole page. The image URL handed to the client is always our own
+ * /api/media/[id] proxy, never the raw external CDN URL, see that route
+ * for why.
  */
-export const getMediaPool = cache(async (): Promise<ResolvedMedia[]> => {
-  const results = await Promise.allSettled([
-    ...YOUTUBE_VIDEO_URLS.map(resolveYouTubeThumbnail),
-    ...FLICKR_PHOTO_URLS.map(resolveFlickrImage),
-    ...INSTAGRAM_POST_URLS.map(resolveInstagramImage),
-  ])
+export const getMediaPool = cache(async (): Promise<PoolItem[]> => {
+  const results = await Promise.allSettled(
+    CURATED_MEDIA.map(async (link): Promise<PoolItem | undefined> => {
+      const resolved = await RESOLVERS[link.source](link.url)
+      if (!resolved) return undefined
+      return { id: link.id, proxyUrl: `/api/media/${link.id}`, alt: resolved.alt, source: link.source }
+    })
+  )
 
   return results
-    .filter((r): r is PromiseFulfilledResult<ResolvedMedia | undefined> => r.status === 'fulfilled')
+    .filter((r): r is PromiseFulfilledResult<PoolItem | undefined> => r.status === 'fulfilled')
     .map(r => r.value)
-    .filter((media): media is ResolvedMedia => Boolean(media))
+    .filter((item): item is PoolItem => Boolean(item))
 })

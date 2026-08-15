@@ -17,7 +17,7 @@ export const metadata: Metadata = {
  */
 export default async function HeroLabPage() {
   const pool = await getMediaPool()
-  const images = pool.map(media => media.imageUrl)
+  const images = pool.map(media => media.proxyUrl)
 
   return (
     <div>

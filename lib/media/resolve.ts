@@ -1,7 +1,9 @@
+import type { MediaSource } from './curated'
+
 export interface ResolvedMedia {
   imageUrl: string
   alt: string
-  source: 'youtube' | 'flickr' | 'instagram'
+  source: MediaSource
 }
 
 /** YouTube's public oEmbed endpoint, keyless, works for any watch/share URL. */
@@ -62,4 +64,17 @@ export async function resolveInstagramImage(postUrl: string): Promise<ResolvedMe
   } catch {
     return undefined
   }
+}
+
+export const RESOLVERS: Record<MediaSource, (url: string) => Promise<ResolvedMedia | undefined>> = {
+  youtube: resolveYouTubeThumbnail,
+  flickr: resolveFlickrImage,
+  instagram: resolveInstagramImage,
+}
+
+/** How long a proxied image response stays cacheable. Instagram's signed URLs expire, so it gets a much shorter window. */
+export const MEDIA_CACHE_SECONDS: Record<MediaSource, number> = {
+  youtube: 86400,
+  flickr: 86400,
+  instagram: 3600,
 }
