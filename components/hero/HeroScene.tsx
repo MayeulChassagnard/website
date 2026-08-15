@@ -1,14 +1,20 @@
 'use client'
 
-import { useMemo, useRef } from 'react'
+import { Suspense, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
+import { useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 import { useScrollProgress } from '@/lib/motion/scrollProgress'
 
 const COLS = 6
 const ROWS = 3
 const SPACING = 1.5
+const CELL_SIZE = 1.3
 const PALETTE = ['#fff8e7', '#e8e0cc', '#8c8679', '#403a31']
+
+interface HeroSceneProps {
+  images: string[]
+}
 
 function clamp01(t: number) {
   return Math.min(1, Math.max(0, t))
@@ -72,10 +78,8 @@ function useGrid(): Piece[] {
   }, [])
 }
 
-/** Assembles from scattered to grid over the first 40% of scroll progress. */
-function AssemblingPiece({ piece }: { piece: Piece }) {
-  const ref = useRef<THREE.Mesh>(null)
-
+/** Assembles from scattered to grid over the first 40% of scroll progress, GSAP/ScrollTrigger writes progress, this reads it directly rather than through React state. */
+function useAssemble(ref: React.RefObject<THREE.Mesh | null>, piece: Piece) {
   useFrame(() => {
     if (!ref.current) return
     const progress = useScrollProgress.getState().progress
@@ -88,11 +92,33 @@ function AssemblingPiece({ piece }: { piece: Piece }) {
       lerp(piece.scatteredRotation.z, 0, t)
     )
   })
+}
+
+function ColorPiece({ piece }: { piece: Piece }) {
+  const ref = useRef<THREE.Mesh>(null)
+  useAssemble(ref, piece)
 
   return (
     <mesh ref={ref}>
-      <planeGeometry args={[1.15, 1.15]} />
+      <planeGeometry args={[CELL_SIZE, CELL_SIZE]} />
       <meshBasicMaterial color={piece.color} side={THREE.DoubleSide} />
+    </mesh>
+  )
+}
+
+function TexturedPiece({ piece, imageUrl }: { piece: Piece; imageUrl: string }) {
+  const ref = useRef<THREE.Mesh>(null)
+  const texture = useTexture(imageUrl)
+  useAssemble(ref, piece)
+
+  const image = texture.image as { width: number; height: number } | undefined
+  const aspect = image ? image.width / image.height : 1
+  const [w, h] = aspect >= 1 ? [CELL_SIZE, CELL_SIZE / aspect] : [CELL_SIZE * aspect, CELL_SIZE]
+
+  return (
+    <mesh ref={ref} scale={[w, h, 1]}>
+      <planeGeometry args={[1, 1]} />
+      <meshBasicMaterial map={texture} side={THREE.DoubleSide} toneMapped={false} />
     </mesh>
   )
 }
@@ -108,15 +134,21 @@ function CameraRig() {
   return null
 }
 
-export default function HeroScene() {
+export default function HeroScene({ images }: HeroSceneProps) {
   const pieces = useGrid()
 
   return (
     <>
       <CameraRig />
-      {pieces.map((piece, i) => (
-        <AssemblingPiece key={i} piece={piece} />
-      ))}
+      <Suspense fallback={null}>
+        {pieces.map((piece, i) =>
+          images.length > 0 ? (
+            <TexturedPiece key={i} piece={piece} imageUrl={images[i % images.length]} />
+          ) : (
+            <ColorPiece key={i} piece={piece} />
+          )
+        )}
+      </Suspense>
     </>
   )
 }

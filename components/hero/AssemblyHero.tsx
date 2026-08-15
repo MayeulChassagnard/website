@@ -13,6 +13,7 @@ interface AssemblyHeroProps {
   headline: string
   fallbackImageSrc: string
   fallbackImageAlt: string
+  images: string[]
 }
 
 function HeroOverlay({ headline }: { headline: string }) {
@@ -30,7 +31,7 @@ function HeroOverlay({ headline }: { headline: string }) {
   )
 }
 
-export default function AssemblyHero({ headline, fallbackImageSrc, fallbackImageAlt }: AssemblyHeroProps) {
+export default function AssemblyHero({ headline, fallbackImageSrc, fallbackImageAlt, images }: AssemblyHeroProps) {
   const heroRef = useRef<HTMLDivElement>(null)
   const reducedMotion = usePrefersReducedMotion()
 
@@ -73,7 +74,7 @@ export default function AssemblyHero({ headline, fallbackImageSrc, fallbackImage
 
   return (
     <div ref={heroRef} className="relative h-screen w-full overflow-hidden bg-secondary">
-      <HeroCanvas />
+      <HeroCanvas images={images} />
       <HeroOverlay headline={headline} />
     </div>
   )
