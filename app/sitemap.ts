@@ -1,29 +1,20 @@
 import type { MetadataRoute } from 'next'
-import { getAllGallerySlugs, getAllPosts } from '@/lib/contentful/queries'
-import { SITE_URL } from '@/lib/seo'
+import { PROJECTS } from '@/lib/content/projects'
+import { SITE_URL } from '@/lib/content/seo'
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [posts, gallerySlugs] = await Promise.all([
-    getAllPosts().catch(() => []),
-    getAllGallerySlugs().catch(() => []),
-  ])
-
+export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: SITE_URL, changeFrequency: 'monthly' },
-    { url: `${SITE_URL}/blog`, changeFrequency: 'weekly' },
-    { url: `${SITE_URL}/contact`, changeFrequency: 'yearly' },
+    { url: SITE_URL, changeFrequency: 'monthly', priority: 1 },
+    { url: `${SITE_URL}/work`, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${SITE_URL}/about`, changeFrequency: 'yearly', priority: 0.6 },
+    { url: `${SITE_URL}/contact`, changeFrequency: 'yearly', priority: 0.6 },
   ]
 
-  const postRoutes: MetadataRoute.Sitemap = posts.map(post => ({
-    url: `${SITE_URL}/blog/${post.slug}`,
-    lastModified: post.publishDate,
-    changeFrequency: 'monthly',
+  const projectRoutes: MetadataRoute.Sitemap = PROJECTS.map(project => ({
+    url: `${SITE_URL}/work/${project.slug}`,
+    changeFrequency: 'yearly',
+    priority: 0.8,
   }))
 
-  const galleryRoutes: MetadataRoute.Sitemap = gallerySlugs.map(slug => ({
-    url: `${SITE_URL}/${slug}`,
-    changeFrequency: 'monthly',
-  }))
-
-  return [...staticRoutes, ...postRoutes, ...galleryRoutes]
+  return [...staticRoutes, ...projectRoutes]
 }

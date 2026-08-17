@@ -10,21 +10,18 @@ gsap.registerPlugin(ScrollTrigger)
 interface RevealProps {
   children: React.ReactNode
   className?: string
-  /** Seconds of delay before this element animates in. */
   delay?: number
-  /** Distance in px the element rises from. */
   y?: number
 }
 
 /**
- * Fades and lifts its children into view once, on scroll enter.
+ * Slow, restrained fade-and-lift on scroll enter.
  *
- * Uses gsap.from() rather than CSS-hidden initial state on purpose: the
- * start state is applied at runtime, so if JS never runs (or motion is
- * reduced) the content is simply already visible instead of stuck at
- * opacity 0.
+ * Uses gsap.from() rather than a CSS-hidden initial state so that if JS
+ * never runs, or motion is reduced, the content is simply already visible
+ * instead of stranded at opacity 0.
  */
-export default function Reveal({ children, className, delay = 0, y = 28 }: RevealProps) {
+export default function Reveal({ children, className, delay = 0, y = 34 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null)
   const reducedMotion = usePrefersReducedMotion()
 
@@ -35,10 +32,10 @@ export default function Reveal({ children, className, delay = 0, y = 28 }: Revea
       gsap.from(ref.current, {
         opacity: 0,
         y,
-        duration: 0.9,
+        duration: 1.5,
         delay,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
+        ease: 'expo.out',
+        scrollTrigger: { trigger: ref.current, start: 'top 88%', once: true },
       })
     })
 

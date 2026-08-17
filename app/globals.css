@@ -1,105 +1,129 @@
 @import "tailwindcss";
-@plugin "@tailwindcss/typography";
 
 /*
- * Dark-committed cinematic palette. The old cream/black prefers-color-scheme
- * swap is gone on purpose: for a photo/video portfolio the images are the
- * content, and a dark ground is what makes them read. The warm DNA of the
- * original brand is preserved, the near-black is warm-tinted (derived from
- * the old #140D00) and the foreground is the old cream #FFF8E7, now used as
- * ink-on-dark rather than paper.
+ * Gallery ground: black, near-black, off-white. Deliberately no brand accent
+ * colour, the brief asks for tints to come from the artworks themselves, so
+ * the interface stays achromatic and the photographs carry all the colour.
  */
 @theme {
-  --color-ink: #0c0b09;
-  --color-ink-soft: #15130f;
-  --color-ink-raised: #1e1b16;
-  --color-line: #2c2721;
+  --color-void: #000000;
+  --color-near: #070707;
+  --color-raised: #0e0e0e;
+  --color-line: #1c1c1c;
+  --color-line-soft: #131313;
 
-  --color-paper: #f5efe0;
-  --color-paper-dim: #a39b8b;
-  --color-paper-faint: #6b655a;
+  --color-bone: #ede9e3;
+  --color-bone-dim: #8a8681;
+  --color-bone-faint: #55524e;
 
-  --color-accent: #e8b44a;
-  --color-accent-deep: #b8862c;
+  --font-display: var(--font-bodoni);
+  --font-sans: var(--font-jost);
 
-  --font-display: var(--font-instrument-serif);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-
-  --animate-marquee: marquee 40s linear infinite;
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+  --ease-cine: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html {
-  background: var(--color-ink);
-  /* Lenis drives scrolling; native smooth would fight it. */
-  scroll-behavior: auto;
+  background: var(--color-void);
+  scroll-behavior: auto; /* Lenis owns scrolling */
 }
 
 body {
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--color-void);
+  color: var(--color-bone);
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: var(--color-ink);
-}
-
-/* Fluid display type: big on desktop without blowing up small screens. */
-.display-xl {
-  font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(2.75rem, 11vw, 10rem);
-  line-height: 0.92;
-  letter-spacing: -0.02em;
-}
-
-.display-lg {
-  font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(2rem, 6vw, 4.5rem);
-  line-height: 1;
-  letter-spacing: -0.015em;
-}
-
-.display-md {
-  font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(1.6rem, 3.5vw, 2.75rem);
-  line-height: 1.08;
+  background: var(--color-bone);
+  color: var(--color-void);
 }
 
 /*
- * Small uppercase mono label for section eyebrows and metadata.
- * Deliberately sets no color: these helpers are unlayered CSS, which in the
- * cascade outranks Tailwind's layered utilities, so declaring color here
- * would silently defeat any text-* class used alongside it.
+ * Display type. Bodoni's extreme stroke contrast only reads as elegant at
+ * large sizes with tight leading and slightly negative tracking.
+ * These helpers set no colour: they are unlayered CSS, which outranks
+ * Tailwind's layered utilities, so a colour here would defeat text-*.
  */
-.eyebrow {
-  font-family: var(--font-mono), monospace;
+.d-hero {
+  font-family: var(--font-display), Didot, Georgia, serif;
+  font-size: clamp(3rem, 13vw, 13rem);
+  line-height: 0.86;
+  letter-spacing: -0.03em;
+  font-weight: 400;
+}
+
+.d-xl {
+  font-family: var(--font-display), Didot, Georgia, serif;
+  font-size: clamp(2.5rem, 8vw, 7rem);
+  line-height: 0.94;
+  letter-spacing: -0.025em;
+  font-weight: 400;
+}
+
+.d-lg {
+  font-family: var(--font-display), Didot, Georgia, serif;
+  font-size: clamp(1.9rem, 4.5vw, 3.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  font-weight: 400;
+}
+
+.d-md {
+  font-family: var(--font-display), Didot, Georgia, serif;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  line-height: 1.12;
+  font-weight: 400;
+}
+
+.d-italic {
+  font-style: italic;
+}
+
+/* Museum wall-label sans: wide tracking, small, uppercase. */
+.label {
+  font-family: var(--font-sans), sans-serif;
   font-size: 0.6875rem;
-  letter-spacing: 0.18em;
+  font-weight: 400;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 
-.prose-invert-warm {
-  --tw-prose-body: var(--color-paper-dim);
-  --tw-prose-headings: var(--color-paper);
-  --tw-prose-links: var(--color-accent);
-  --tw-prose-bold: var(--color-paper);
-  --tw-prose-quotes: var(--color-paper);
-  --tw-prose-quote-borders: var(--color-accent);
-  --tw-prose-hr: var(--color-line);
-  --tw-prose-counters: var(--color-paper-faint);
-  --tw-prose-bullets: var(--color-paper-faint);
+.label-sm {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+.body-copy {
+  font-size: clamp(1rem, 1.15vw, 1.1875rem);
+  line-height: 1.75;
+  color: var(--color-bone-dim);
+}
+
+/* Thin rule used to separate wall labels. */
+.rule {
+  height: 1px;
+  background: var(--color-line);
+}
+
+/*
+ * Custom cursor replaces the native one, but only where a precise pointer
+ * exists. Touch devices keep native behaviour entirely.
+ */
+@media (pointer: fine) {
+  body[data-cursor="on"],
+  body[data-cursor="on"] * {
+    cursor: none;
+  }
+}
+
+/* Media that should fade up as it enters, set by JS then released. */
+[data-emerge] {
+  will-change: transform, opacity;
 }
 
 @media (prefers-reduced-motion: reduce) {

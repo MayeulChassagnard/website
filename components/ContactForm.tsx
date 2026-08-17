@@ -8,13 +8,16 @@ function encode(data: Record<string, string>) {
     .join('&')
 }
 
+const FIELD =
+  'w-full border-0 border-b border-line bg-transparent px-0 py-4 text-bone placeholder:text-bone-faint outline-none transition-colors duration-500 focus:border-bone'
+
 /**
- * Netlify Forms detection is build-time, static-HTML based: it scans the
- * prerendered markup for data-netlify="true" plus the hidden form-name
- * input. Both must be present in what this page ships as static HTML (no
- * force-dynamic on the page), and the submit must stay a plain fetch POST:
- * routing it through a Next.js Route Handler would hand it to Next's server
- * instead of letting Netlify's own forms backend intercept it.
+ * Netlify Forms detection is build-time and static-HTML based: it scans the
+ * prerendered markup for data-netlify="true" plus the hidden form-name input.
+ * Both must survive into the shipped HTML (so this page must stay statically
+ * prerendered, no force-dynamic), and the submit must remain a plain fetch
+ * POST: routing it through a Next Route Handler would hand the request to
+ * Next's server instead of letting Netlify's own forms backend intercept it.
  */
 export default function ContactForm() {
   const [values, setValues] = useState({ name: '', email: '', message: '' })
@@ -43,9 +46,9 @@ export default function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div className="border border-line p-10 text-center">
-        <p className="font-display text-2xl text-paper">Merci de m&apos;avoir contacté.</p>
-        <p className="mt-3 text-paper-dim">Je reviens vers vous rapidement.</p>
+      <div className="border-t border-line pt-10">
+        <p className="d-md text-bone">Message reçu.</p>
+        <p className="body-copy mt-3">Je reviens vers vous rapidement.</p>
       </div>
     )
   }
@@ -56,7 +59,7 @@ export default function ContactForm() {
       onSubmit={handleSubmit}
       data-netlify="true"
       data-netlify-honeypot="bot"
-      className="flex flex-col gap-6"
+      className="flex flex-col gap-8"
     >
       <input type="hidden" name="form-name" value="contact" />
       <p className="hidden">
@@ -68,11 +71,11 @@ export default function ContactForm() {
       <input
         name="name"
         type="text"
-        placeholder="Nom complet"
+        placeholder="Nom"
         value={values.name}
         onChange={handleChange}
         required
-        className="w-full border-0 border-b border-line bg-transparent px-0 py-4 text-paper placeholder:text-paper-faint outline-none transition-colors focus:border-accent"
+        className={FIELD}
       />
       <input
         name="email"
@@ -81,29 +84,29 @@ export default function ContactForm() {
         value={values.email}
         onChange={handleChange}
         required
-        className="w-full border-0 border-b border-line bg-transparent px-0 py-4 text-paper placeholder:text-paper-faint outline-none transition-colors focus:border-accent"
+        className={FIELD}
       />
       <textarea
         name="message"
-        placeholder="Message"
+        placeholder="Le projet"
         value={values.message}
         onChange={handleChange}
         required
-        rows={8}
-        className="resize-y w-full border-0 border-b border-line bg-transparent px-0 py-4 text-paper placeholder:text-paper-faint outline-none transition-colors focus:border-accent"
+        rows={6}
+        className={`${FIELD} resize-y`}
       />
 
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="eyebrow mt-4 border border-paper-faint px-8 py-4 text-paper transition-colors hover:border-accent hover:text-accent disabled:opacity-40"
+        className="label mt-4 self-start border-b border-bone-faint pb-2 text-bone transition-colors duration-500 hover:border-bone disabled:opacity-40"
       >
-        {status === 'submitting' ? 'Envoi...' : 'Envoyer'}
+        {status === 'submitting' ? 'Envoi' : 'Envoyer'}
       </button>
 
       {status === 'error' && (
-        <p className="text-red-400">
-          Une erreur est survenue, réessayez ou écrivez directement à hello@mayeulchassagnard.com.
+        <p className="body-copy text-sm">
+          Une erreur est survenue. Écrivez directement à hello@mayeulchassagnard.com.
         </p>
       )}
     </form>

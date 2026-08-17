@@ -1,49 +1,57 @@
 import type { Metadata } from 'next'
-import ReactMarkdown from 'react-markdown'
 import ContactForm from '@/components/ContactForm'
-import { getAbout } from '@/lib/contentful/queries'
-import { buildMetadata, excerpt } from '@/lib/seo'
+import Reveal from '@/components/motion/Reveal'
+import { CONTACT_EMAIL, SOCIALS } from '@/lib/content/site'
 
-export async function generateMetadata(): Promise<Metadata> {
-  const about = await getAbout().catch(() => undefined)
-  return buildMetadata({
-    title: 'Contact',
-    description: about?.body ? excerpt(about.body) : undefined,
-    image: about?.shareImage,
-    path: '/contact',
-  })
+export const metadata: Metadata = {
+  title: 'Contact',
+  description: "Let's create something unexpected.",
 }
 
-export default async function ContactPage() {
-  let about
-  try {
-    about = await getAbout()
-  } catch {
-    // Contentful not configured, or the "about" content type ID doesn't
-    // match, the form below still works either way.
-  }
-
+export default function ContactPage() {
   return (
-    <section className="px-6 pt-40 pb-28">
-      <div className="mx-auto grid max-w-5xl gap-20 md:grid-cols-2">
-        <div>
-          <p className="eyebrow text-paper-faint">Contact</p>
-          <h1 className="display-lg mt-6 text-paper">
-            {about?.headline ?? 'Parlons de votre projet'}
-          </h1>
-          {about?.body && (
-            <div className="prose prose-invert-warm mt-8 max-w-none">
-              <ReactMarkdown>{about.body}</ReactMarkdown>
-            </div>
-          )}
-          <a
-            href="mailto:hello@mayeulchassagnard.com"
-            className="eyebrow mt-10 inline-block text-accent transition-opacity hover:opacity-70"
-          >
-            hello@mayeulchassagnard.com
-          </a>
+    <section className="px-6 pt-40 pb-40 md:px-10 md:pt-56">
+      <h1 className="d-hero max-w-5xl text-bone">
+        Let&apos;s create something <span className="d-italic">unexpected.</span>
+      </h1>
+
+      <div className="mt-32 grid grid-cols-12 gap-y-20 gap-x-6 md:mt-48">
+        <div className="col-span-12 md:col-span-5">
+          <Reveal>
+            <span className="label-sm text-bone-faint">Direct</span>
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              data-cursor-label="MAIL"
+              className="d-md mt-5 block text-bone transition-opacity duration-500 hover:opacity-60"
+            >
+              {CONTACT_EMAIL}
+            </a>
+
+            <span className="label-sm mt-16 block text-bone-faint">Elsewhere</span>
+            <nav className="mt-5 flex flex-col gap-3">
+              {SOCIALS.map(social => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="label text-bone-dim transition-colors duration-500 hover:text-bone"
+                >
+                  {social.label}
+                </a>
+              ))}
+            </nav>
+          </Reveal>
         </div>
-        <ContactForm />
+
+        <div className="col-span-12 md:col-span-6 md:col-start-7">
+          <Reveal delay={0.12}>
+            <span className="label-sm text-bone-faint">Un projet</span>
+            <div className="mt-8">
+              <ContactForm />
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   )

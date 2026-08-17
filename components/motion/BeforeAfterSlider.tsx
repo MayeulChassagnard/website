@@ -51,7 +51,7 @@ export default function BeforeAfterSlider({
   return (
     <div
       ref={containerRef}
-      className="relative aspect-4/3 w-full touch-none overflow-hidden rounded-sm select-none"
+      className="relative aspect-4/3 w-full touch-none overflow-hidden select-none"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
     >
@@ -71,14 +71,14 @@ export default function BeforeAfterSlider({
         draggable={false}
       />
 
-      <div className="eyebrow pointer-events-none absolute top-4 left-4 bg-ink/70 px-3 py-1.5 text-paper">
+      <div className="label-sm pointer-events-none absolute top-5 left-5 bg-void/60 px-3 py-2 text-bone">
         {beforeLabel}
       </div>
-      <div className="eyebrow pointer-events-none absolute top-4 right-4 bg-ink/70 px-3 py-1.5 text-paper">
+      <div className="label-sm pointer-events-none absolute top-5 right-5 bg-void/60 px-3 py-2 text-bone">
         {afterLabel}
       </div>
 
-      <div className="absolute inset-y-0 w-px bg-paper" style={{ left: `${position}%` }} />
+      <div className="absolute inset-y-0 w-px bg-bone" style={{ left: `${position}%` }} />
       <button
         type="button"
         role="slider"
@@ -87,7 +87,7 @@ export default function BeforeAfterSlider({
         aria-valuemax={100}
         aria-valuenow={Math.round(position)}
         onKeyDown={handleKeyDown}
-        className="absolute top-1/2 h-11 w-11 -translate-x-1/2 -translate-y-1/2 rounded-full border border-ink/20 bg-paper shadow-2xl focus:outline-2 focus:outline-offset-2 focus:outline-accent"
+        className="absolute top-1/2 h-11 w-11 -translate-x-1/2 -translate-y-1/2 rounded-full border border-void/20 bg-bone shadow-2xl focus:outline-2 focus:outline-offset-2 focus:outline-bone"
         style={{ left: `${position}%` }}
       />
     </div>
