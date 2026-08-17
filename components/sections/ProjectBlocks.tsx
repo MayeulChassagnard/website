@@ -2,21 +2,23 @@
 
 import Reveal from '@/components/motion/Reveal'
 import ParallaxMedia from '@/components/motion/ParallaxMedia'
+import ScaleStage from '@/components/motion/ScaleStage'
+import MaskReveal from '@/components/motion/MaskReveal'
 import GalleryPhoto from '@/components/media/GalleryPhoto'
-import VideoWork from '@/components/media/VideoWork'
+import CinemaVideo from '@/components/media/CinemaVideo'
 import BeforeAfterSlider from '@/components/motion/BeforeAfterSlider'
+import PhotoStack from '@/components/sections/PhotoStack'
 import Sculpture from '@/components/three/Sculpture'
-import Mosaic from '@/components/three/Mosaic'
+import PhotoCorridor from '@/components/three/PhotoCorridor'
 import { PHOTOS, flickrSize, videoById } from '@/lib/content/media'
 import { photoAt, type Block } from '@/lib/content/projects'
 
 /**
  * Renders a project's media sequence.
  *
- * The alternation between full-bleed media and near-empty space is what
- * makes a project read as an exhibition rather than an article, so the
- * vertical rhythm lives here per block type rather than in a uniform
- * container.
+ * The alternation between full-bleed media and near-empty space is what makes
+ * a project read as an exhibition rather than an article, so the vertical
+ * rhythm is set per block type here rather than by one uniform container.
  */
 export default function ProjectBlocks({ blocks }: { blocks: Block[] }) {
   return (
@@ -26,23 +28,24 @@ export default function ProjectBlocks({ blocks }: { blocks: Block[] }) {
           case 'text':
             return (
               <section key={i} className="px-6 py-28 md:px-10 md:py-40">
-                <Reveal className="mx-auto max-w-3xl">
-                  <p className="body-copy">{block.body}</p>
-                </Reveal>
+                <div className="mx-auto max-w-3xl">
+                  <MaskReveal text={block.body} as="p" className="body-copy text-xl md:text-2xl" scrub />
+                </div>
               </section>
             )
 
           case 'photo': {
             const photo = photoAt(block.photoIndex)
+            const photoIndex = block.photoIndex % PHOTOS.length
 
             if (block.scale === 'bleed') {
               return (
                 <section key={i} className="py-16">
-                  <ParallaxMedia className="h-[92svh] w-full" strength={16}>
+                  <ParallaxMedia className="h-[94svh] w-full" strength={18}>
                     <GalleryPhoto
                       photo={photo}
                       photos={PHOTOS}
-                      index={block.photoIndex % PHOTOS.length}
+                      index={photoIndex}
                       sizes="100vw"
                       className="h-full"
                     />
@@ -54,11 +57,11 @@ export default function ProjectBlocks({ blocks }: { blocks: Block[] }) {
             if (block.scale === 'full') {
               return (
                 <section key={i} className="px-6 py-16 md:px-10">
-                  <ParallaxMedia className="h-[78svh] w-full" strength={12} mask>
+                  <ParallaxMedia className="h-[80svh] w-full" strength={13} mask>
                     <GalleryPhoto
                       photo={photo}
                       photos={PHOTOS}
-                      index={block.photoIndex % PHOTOS.length}
+                      index={photoIndex}
                       sizes="100vw"
                       className="h-full"
                     />
@@ -74,7 +77,7 @@ export default function ProjectBlocks({ blocks }: { blocks: Block[] }) {
                   <GalleryPhoto
                     photo={photo}
                     photos={PHOTOS}
-                    index={block.photoIndex % PHOTOS.length}
+                    index={photoIndex}
                     sizes="(max-width: 768px) 100vw, 40vw"
                   />
                 </Reveal>
@@ -86,7 +89,7 @@ export default function ProjectBlocks({ blocks }: { blocks: Block[] }) {
             return (
               <section key={i} className="grid grid-cols-1 gap-6 px-6 py-16 md:grid-cols-2 md:px-10">
                 {block.photoIndexes.map((photoIndex, j) => (
-                  <Reveal key={j} delay={j * 0.12} className={j === 1 ? 'md:pt-28' : undefined}>
+                  <Reveal key={j} delay={j * 0.12} className={j === 1 ? 'md:pt-32' : undefined}>
                     <GalleryPhoto
                       photo={photoAt(photoIndex)}
                       photos={PHOTOS}
@@ -101,15 +104,13 @@ export default function ProjectBlocks({ blocks }: { blocks: Block[] }) {
           case 'video': {
             const video = videoById(block.videoId)
             if (!video) return null
+
+            // Films open from a small print to full bleed, so a video is a
+            // staged moment rather than a rectangle dropped into the column.
             return (
-              <section key={i} className="px-6 py-16 md:px-10">
-                <VideoWork
-                  videoId={video.id}
-                  title={video.title}
-                  poster={video.poster}
-                  caption={block.caption}
-                />
-              </section>
+              <ScaleStage key={i} label={block.caption}>
+                <CinemaVideo videoId={video.id} title={video.title} poster={video.poster} />
+              </ScaleStage>
             )
           }
 
@@ -125,31 +126,27 @@ export default function ProjectBlocks({ blocks }: { blocks: Block[] }) {
                     beforeLabel="Brut"
                     afterLabel="Étalonné"
                   />
-                  {block.caption && (
-                    <p className="label-sm mt-4 text-bone-faint">{block.caption}</p>
-                  )}
+                  {block.caption && <p className="label-sm mt-4 text-bone-faint">{block.caption}</p>}
                 </Reveal>
               </section>
             )
           }
 
           case 'sculpture':
-            return (
-              <section key={i} className="py-16">
-                <Sculpture caption={block.caption} />
-              </section>
-            )
+            return <Sculpture key={i} caption={block.caption} />
 
           case 'mosaic':
             return (
-              <section key={i} className="py-16">
-                <Mosaic
-                  images={PHOTOS.slice(0, 18).map(p => flickrSize(p.url, 'c'))}
-                  stillSrc={PHOTOS[0].url}
-                  caption={block.caption}
-                />
-              </section>
+              <PhotoCorridor
+                key={i}
+                images={PHOTOS.map(photo => flickrSize(photo.url, 'c'))}
+                stillSrc={PHOTOS[0].url}
+                caption={block.caption}
+              />
             )
+
+          case 'stack':
+            return <PhotoStack key={i} photos={PHOTOS.slice(2, 8)} label={block.caption} />
 
           default:
             return null

@@ -10,6 +10,7 @@ export type Block =
   | { kind: 'video'; videoId: string; caption?: string }
   | { kind: 'sculpture'; caption?: string }
   | { kind: 'mosaic'; caption?: string }
+  | { kind: 'stack'; caption?: string }
   | { kind: 'compare'; photoIndex: number; caption?: string }
 
 export interface Project {
@@ -173,6 +174,7 @@ export const PROJECTS: Project[] = [
         body: 'Une seule caméra, une seule optique, aucune lumière ajoutée. Rester invisible est le principal travail de la journée.',
       },
       { kind: 'pair', photoIndexes: [0, 1] },
+      { kind: 'stack', caption: 'Planches contact' },
     ],
   },
   {

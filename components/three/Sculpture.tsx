@@ -1,75 +1,47 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
+import { useScrollPin } from '@/lib/motion/useScrollPin'
 import { usePrefersReducedMotion } from '@/lib/motion/usePrefersReducedMotion'
+import { useWebGLSupport } from '@/lib/motion/useWebGLSupport'
 
-// three.js plus a 5.6MB model: isolated behind a dynamic import so it is only
-// fetched on pages that actually show the sculpture.
+// three.js plus a 5.6MB model: dynamic-imported so it is only fetched on pages
+// that actually show the sculpture.
 const SculptureScene = dynamic(() => import('./SculptureScene'), { ssr: false })
 
-function hasWebGL() {
-  try {
-    const canvas = document.createElement('canvas')
-    return Boolean(canvas.getContext('webgl2') ?? canvas.getContext('webgl'))
-  } catch {
-    return false
-  }
-}
-
 /**
- * Mounts the WebGL sculpture only once its frame nears the viewport, and never
- * under reduced motion or without WebGL support, where a still plate stands in.
+ * Pins the sculpture and hands its scroll progress to the scene, so the object
+ * is turned and approached by the page rather than looping on its own.
  *
- * Support is probed inside the observer callback rather than the effect body:
- * it needs `document` (so it cannot be a lazy useState initialiser during SSR)
- * and setting state directly in an effect cascades an extra render.
+ * Never mounts under reduced motion or without WebGL, where a still plate
+ * stands in and the section does not pin.
  */
 export default function Sculpture({ caption }: { caption?: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [status, setStatus] = useState<'idle' | 'ready' | 'unsupported'>('idle')
   const reducedMotion = usePrefersReducedMotion()
+  const supported = useWebGLSupport()
 
-  useEffect(() => {
-    const el = ref.current
-    if (!el || reducedMotion) return
+  const active = supported && !reducedMotion
+  const { ref, progress } = useScrollPin<HTMLDivElement>({ distance: 3, enabled: active })
 
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return
-          setStatus(hasWebGL() ? 'ready' : 'unsupported')
-          observer.disconnect()
-        })
-      },
-      // Start fetching before it is on screen; the model is large.
-      { rootMargin: '400px' }
+  if (!active) {
+    return (
+      <figure>
+        <div className="flex h-svh w-full items-center justify-center bg-near">
+          <span className="label-sm text-bone-faint">Volume, rendu statique</span>
+        </div>
+        {caption && (
+          <figcaption className="label-sm mt-4 px-6 text-bone-faint md:px-10">{caption}</figcaption>
+        )}
+      </figure>
     )
-
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [reducedMotion])
-
-  const inert = reducedMotion || status === 'unsupported'
+  }
 
   return (
-    <figure>
-      <div
-        ref={ref}
-        data-cursor-label={inert ? undefined : 'DRAG'}
-        className="relative h-svh w-full overflow-hidden bg-near"
-      >
-        {status === 'ready' && !reducedMotion ? (
-          <SculptureScene />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center">
-            <span className="label-sm text-bone-faint">
-              {inert ? 'Volume, rendu statique' : 'Volume'}
-            </span>
-          </div>
-        )}
-      </div>
-      {caption && <figcaption className="label-sm mt-4 text-bone-faint">{caption}</figcaption>}
-    </figure>
+    <div ref={ref} className="relative h-svh w-full overflow-hidden bg-near" data-cursor-label="DRAG">
+      <SculptureScene progress={progress} />
+      {caption && (
+        <span className="label-sm absolute bottom-8 left-6 text-bone-faint md:left-10">{caption}</span>
+      )}
+    </div>
   )
 }
