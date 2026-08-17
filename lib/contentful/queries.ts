@@ -1,10 +1,12 @@
 import { cache } from 'react'
 import {
+  fetchAssets,
   fetchEntries,
   resolveAsset,
   resolveAssetList,
   resolveEntryList,
   type CdaResponse,
+  type ResolvedAsset,
 } from './client'
 import type { About, BlogPage, ExtendedGallery, Home, Post, SubGallery, Tag } from './types'
 
@@ -191,6 +193,22 @@ export const getAbout = cache(async (): Promise<About | undefined> => {
     shareImage: resolveAsset(entry.fields.shareImage, res.includes),
     body: entry.fields.body,
   }
+})
+
+/** Every image asset in the space, keyed lookup by title for the demo showcase. */
+export const getImageAssets = cache(async (): Promise<ResolvedAsset[]> => {
+  const res = await fetchAssets()
+  return res.items
+    .filter(asset => asset.fields.file?.contentType?.startsWith('image/'))
+    .map(asset => ({
+      title: asset.fields.title,
+      url: asset.fields.file.url.startsWith('//')
+        ? `https:${asset.fields.file.url}`
+        : asset.fields.file.url,
+      width: asset.fields.file.details.image?.width,
+      height: asset.fields.file.details.image?.height,
+      contentType: asset.fields.file.contentType,
+    }))
 })
 
 /**

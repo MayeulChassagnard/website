@@ -10,7 +10,8 @@ const COLS = 6
 const ROWS = 3
 const SPACING = 1.5
 const CELL_SIZE = 1.3
-const PALETTE = ['#fff8e7', '#e8e0cc', '#8c8679', '#403a31']
+// Mirrors the CSS palette in globals.css (paper, dim, accent, raised).
+const PALETTE = ['#f5efe0', '#a39b8b', '#e8b44a', '#1e1b16']
 
 interface HeroSceneProps {
   images: string[]

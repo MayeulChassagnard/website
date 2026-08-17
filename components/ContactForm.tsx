@@ -43,9 +43,9 @@ export default function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div className="rounded-sm border border-base-300/40 p-8 text-center">
-        <p className="text-lg font-medium">Merci de m&apos;avoir contacté.</p>
-        <p className="mt-2 text-base-600">Je reviens vers vous rapidement.</p>
+      <div className="border border-line p-10 text-center">
+        <p className="font-display text-2xl text-paper">Merci de m&apos;avoir contacté.</p>
+        <p className="mt-3 text-paper-dim">Je reviens vers vous rapidement.</p>
       </div>
     )
   }
@@ -72,7 +72,7 @@ export default function ContactForm() {
         value={values.name}
         onChange={handleChange}
         required
-        className="border border-base-300/40 bg-transparent px-4 py-3 outline-none focus:border-secondary"
+        className="w-full border-0 border-b border-line bg-transparent px-0 py-4 text-paper placeholder:text-paper-faint outline-none transition-colors focus:border-accent"
       />
       <input
         name="email"
@@ -81,7 +81,7 @@ export default function ContactForm() {
         value={values.email}
         onChange={handleChange}
         required
-        className="border border-base-300/40 bg-transparent px-4 py-3 outline-none focus:border-secondary"
+        className="w-full border-0 border-b border-line bg-transparent px-0 py-4 text-paper placeholder:text-paper-faint outline-none transition-colors focus:border-accent"
       />
       <textarea
         name="message"
@@ -90,19 +90,19 @@ export default function ContactForm() {
         onChange={handleChange}
         required
         rows={8}
-        className="resize-y border border-base-300/40 bg-transparent px-4 py-3 outline-none focus:border-secondary"
+        className="resize-y w-full border-0 border-b border-line bg-transparent px-0 py-4 text-paper placeholder:text-paper-faint outline-none transition-colors focus:border-accent"
       />
 
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="bg-secondary px-6 py-3 font-medium text-base transition-opacity hover:opacity-90 disabled:opacity-50"
+        className="eyebrow mt-4 border border-paper-faint px-8 py-4 text-paper transition-colors hover:border-accent hover:text-accent disabled:opacity-40"
       >
         {status === 'submitting' ? 'Envoi...' : 'Envoyer'}
       </button>
 
       {status === 'error' && (
-        <p className="text-red-600">
+        <p className="text-red-400">
           Une erreur est survenue, réessayez ou écrivez directement à hello@mayeulchassagnard.com.
         </p>
       )}

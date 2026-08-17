@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -16,21 +16,29 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  weight: "400",
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: {
-    default: "Mayeul Chassagnard",
+    default: "Mayeul Chassagnard, photographe et vidéaste",
     template: "%s, Mayeul Chassagnard",
   },
-  description: "Photography, galleries and writing by Mayeul Chassagnard.",
+  description:
+    "Photographe et vidéaste. Images fixes, films, prises de vue aériennes et post-production.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="fr"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-ink text-paper">
         <SmoothScroll>
           <Header />
           <main className="flex-1">{children}</main>

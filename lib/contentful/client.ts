@@ -74,6 +74,31 @@ export async function fetchEntries<Fields = Record<string, unknown>>(
   return res.json()
 }
 
+/** Fetches assets directly (not via an entry's includes), used to build the visual pool. */
+export async function fetchAssets({
+  tags,
+  revalidate,
+}: { tags?: string[]; revalidate?: number } = {}): Promise<{ items: CdaAsset[] }> {
+  if (!SPACE_ID || !DELIVERY_TOKEN) {
+    throw new Error(
+      'CONTENTFUL_SPACE_ID / CONTENTFUL_DELIVERY_TOKEN are not set in the environment.'
+    )
+  }
+
+  const params = new URLSearchParams({ access_token: DELIVERY_TOKEN, limit: '1000' })
+
+  const res = await fetch(
+    `https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT}/assets?${params}`,
+    { next: { tags: tags ?? ['assets'], revalidate: revalidate ?? 3600 } }
+  )
+
+  if (!res.ok) {
+    throw new Error(`Contentful assets request failed: ${res.status} ${await res.text()}`)
+  }
+
+  return res.json()
+}
+
 function findAsset(id: string, includes?: CdaResponse['includes']): CdaAsset | undefined {
   return includes?.Asset?.find(asset => asset.sys.id === id)
 }

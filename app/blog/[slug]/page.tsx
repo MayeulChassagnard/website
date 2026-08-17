@@ -38,39 +38,53 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const { post, previous, next } = result
 
   return (
-    <article className="mx-auto max-w-3xl px-6 py-24">
-      <h1 className="text-3xl font-semibold">{post.title}</h1>
-      <p className="mt-3 text-sm text-base-600">
-        {formatDate(post.publishDate)} · {readingTime(post.body)} min de lecture
-      </p>
+    <article className="pb-28">
+      <header className="px-6 pt-40">
+        <div className="mx-auto max-w-3xl">
+          <span className="eyebrow text-paper-faint">
+            {formatDate(post.publishDate)} · {readingTime(post.body)} min de lecture
+          </span>
+          <h1 className="display-lg mt-6 text-paper">{post.title}</h1>
+        </div>
+      </header>
 
       {post.heroImage && (
-        <Image
-          src={post.heroImage.url}
-          alt={post.heroImage.title}
-          width={post.heroImage.width ?? 1600}
-          height={post.heroImage.height ?? 900}
-          className="mt-10 w-full rounded-sm object-cover"
-          priority
-        />
+        <div className="mx-auto mt-16 max-w-5xl px-6">
+          <Image
+            src={post.heroImage.url}
+            alt={post.heroImage.title}
+            width={post.heroImage.width ?? 1600}
+            height={post.heroImage.height ?? 900}
+            className="w-full object-cover"
+            priority
+          />
+        </div>
       )}
 
-      <div className="prose prose-neutral mt-10 max-w-none dark:prose-invert">
-        <ReactMarkdown>{post.body}</ReactMarkdown>
+      <div className="px-6">
+        <div className="prose prose-invert-warm mx-auto mt-16 max-w-3xl text-lg">
+          <ReactMarkdown>{post.body}</ReactMarkdown>
+        </div>
       </div>
 
       {(previous || next) && (
-        <nav className="mt-16 flex justify-between border-t border-base-300/30 pt-8 text-sm">
+        <nav className="mx-auto mt-28 flex max-w-3xl justify-between gap-8 border-t border-line px-6 pt-10">
           {previous ? (
-            <Link href={`/blog/${previous.slug}`} className="hover:opacity-70">
-              ← {previous.title}
+            <Link href={`/blog/${previous.slug}`} className="group max-w-[45%]">
+              <span className="eyebrow text-paper-faint">Précédent</span>
+              <span className="mt-2 block font-display text-xl text-paper transition-colors group-hover:text-accent">
+                {previous.title}
+              </span>
             </Link>
           ) : (
             <span />
           )}
           {next && (
-            <Link href={`/blog/${next.slug}`} className="text-right hover:opacity-70">
-              {next.title} →
+            <Link href={`/blog/${next.slug}`} className="group max-w-[45%] text-right">
+              <span className="eyebrow text-paper-faint">Suivant</span>
+              <span className="mt-2 block font-display text-xl text-paper transition-colors group-hover:text-accent">
+                {next.title}
+              </span>
             </Link>
           )}
         </nav>

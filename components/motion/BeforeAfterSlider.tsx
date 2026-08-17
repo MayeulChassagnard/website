@@ -7,6 +7,12 @@ interface BeforeAfterSliderProps {
   afterSrc: string
   beforeLabel?: string
   afterLabel?: string
+  /**
+   * CSS filter applied to the "before" layer. Lets the same photograph act
+   * as its own before/after, which is what a grading comparison actually
+   * is: two different photographs would demonstrate nothing.
+   */
+  beforeFilter?: string
 }
 
 export default function BeforeAfterSlider({
@@ -14,6 +20,7 @@ export default function BeforeAfterSlider({
   afterSrc,
   beforeLabel = 'Avant',
   afterLabel = 'Après',
+  beforeFilter,
 }: BeforeAfterSliderProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState(50)
@@ -60,18 +67,18 @@ export default function BeforeAfterSlider({
         src={beforeSrc}
         alt={beforeLabel}
         className="absolute inset-0 h-full w-full object-cover"
-        style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
+        style={{ clipPath: `inset(0 ${100 - position}% 0 0)`, filter: beforeFilter }}
         draggable={false}
       />
 
-      <div className="pointer-events-none absolute top-4 left-4 rounded-sm bg-secondary/70 px-2 py-1 text-xs text-base">
+      <div className="eyebrow pointer-events-none absolute top-4 left-4 bg-ink/70 px-3 py-1.5 text-paper">
         {beforeLabel}
       </div>
-      <div className="pointer-events-none absolute top-4 right-4 rounded-sm bg-secondary/70 px-2 py-1 text-xs text-base">
+      <div className="eyebrow pointer-events-none absolute top-4 right-4 bg-ink/70 px-3 py-1.5 text-paper">
         {afterLabel}
       </div>
 
-      <div className="absolute inset-y-0 w-px bg-base" style={{ left: `${position}%` }} />
+      <div className="absolute inset-y-0 w-px bg-paper" style={{ left: `${position}%` }} />
       <button
         type="button"
         role="slider"
@@ -80,7 +87,7 @@ export default function BeforeAfterSlider({
         aria-valuemax={100}
         aria-valuenow={Math.round(position)}
         onKeyDown={handleKeyDown}
-        className="absolute top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-secondary/20 bg-base shadow-[var(--shadow)] focus:outline-2 focus:outline-offset-2 focus:outline-secondary"
+        className="absolute top-1/2 h-11 w-11 -translate-x-1/2 -translate-y-1/2 rounded-full border border-ink/20 bg-paper shadow-2xl focus:outline-2 focus:outline-offset-2 focus:outline-accent"
         style={{ left: `${position}%` }}
       />
     </div>

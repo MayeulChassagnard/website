@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 const SOCIAL_LINKS = [
   { href: 'https://www.flickr.com/photos/mayeulchassagnard/', label: 'Flickr' },
   { href: 'https://instagram.com/mayeulchassagnard', label: 'Instagram' },
@@ -6,16 +8,37 @@ const SOCIAL_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-t border-base-300/30">
-      <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-4 px-6 py-8 text-sm">
-        <p>Copyright © {new Date().getFullYear()} Mayeul Chassagnard</p>
-        <nav className="flex gap-4">
-          {SOCIAL_LINKS.map(link => (
-            <a key={link.label} href={link.href} target="_blank" rel="noreferrer" className="hover:opacity-70">
-              {link.label}
-            </a>
-          ))}
-        </nav>
+    <footer className="mt-auto border-t border-line bg-ink">
+      <div className="px-6 py-20">
+        <div className="flex flex-col justify-between gap-12 md:flex-row md:items-end">
+          <div>
+            <p className="eyebrow text-paper-faint">Une image en tête ?</p>
+            <Link
+              href="/contact"
+              className="display-lg mt-4 block text-paper transition-colors hover:text-accent"
+            >
+              Parlons-en
+            </Link>
+          </div>
+
+          <nav className="flex flex-col gap-3 md:items-end">
+            {SOCIAL_LINKS.map(link => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+                className="eyebrow text-paper-dim transition-colors hover:text-accent"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+
+        <p className="eyebrow mt-20 text-paper-faint">
+          Copyright {new Date().getFullYear()} Mayeul Chassagnard
+        </p>
       </div>
     </footer>
   )

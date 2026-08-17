@@ -3,26 +3,28 @@ import Link from 'next/link'
 
 const NAV_LINKS = [
   { href: 'https://mayeulchassagnard.pixieset.com/', label: 'Collections', external: true },
-  { href: '/blog', label: 'Blog', external: false },
+  { href: '/blog', label: 'Journal', external: false },
   { href: '/contact', label: 'Contact', external: false },
 ] as const
 
+const linkClass = 'eyebrow text-paper transition-opacity hover:opacity-60'
+
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-sm bg-base/80">
-      <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-6">
+    <header className="fixed top-0 z-50 w-full bg-gradient-to-b from-ink/80 to-transparent">
+      <div className="flex items-center justify-between px-6 py-6">
         <Link href="/" aria-label="Mayeul Chassagnard, accueil">
           <Image
             src="/logos/MC_logo.svg"
             alt="Mayeul Chassagnard"
             width={140}
             height={40}
-            className="logo h-8 w-auto"
+            className="h-7 w-auto invert"
             unoptimized
             priority
           />
         </Link>
-        <nav className="flex items-center gap-6 text-sm">
+        <nav className="flex items-center gap-8">
           {NAV_LINKS.map(link =>
             link.external ? (
               <a
@@ -30,12 +32,12 @@ export default function Header() {
                 href={link.href}
                 target="_blank"
                 rel="noreferrer"
-                className="hover:opacity-70"
+                className={linkClass}
               >
                 {link.label}
               </a>
             ) : (
-              <Link key={link.label} href={link.href} className="hover:opacity-70">
+              <Link key={link.label} href={link.href} className={linkClass}>
                 {link.label}
               </Link>
             )

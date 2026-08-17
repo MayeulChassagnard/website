@@ -29,15 +29,15 @@ export default async function HeroLabPage() {
       />
 
       <section className="mx-auto max-w-3xl px-6 py-24">
-        <h2 className="text-2xl font-semibold">Prototype : assemblage 3D au scroll</h2>
-        <p className="mt-4 text-base-600">
+        <h2 className="display-md text-paper">Prototype : assemblage 3D au scroll</h2>
+        <p className="mt-4 text-paper-dim">
           Scène R3F pinnée par GSAP ScrollTrigger, propulsée par Lenis. Les 18 pièces
           partent de positions dispersées puis s&apos;assemblent en grille sur les premiers
           40% du scroll, puis la caméra avance à travers la grille sur les 60% restants.
           Recharge cette page avec &quot;Réduire les animations&quot; activé dans les
           préférences système pour voir le repli statique.
         </p>
-        <p className="mt-4 text-base-600">
+        <p className="mt-4 text-paper-dim">
           {images.length > 0
             ? `${images.length} image(s) chargée(s) depuis YouTube/Flickr/Instagram (voir lib/media/curated.ts).`
             : 'Aucun lien renseigné pour le moment dans lib/media/curated.ts, la grille retombe sur des couleurs unies.'}
@@ -45,8 +45,8 @@ export default async function HeroLabPage() {
       </section>
 
       <section className="mx-auto max-w-3xl px-6 py-24">
-        <h2 className="text-2xl font-semibold">Prototype : slider avant/après</h2>
-        <p className="mt-4 text-base-600">
+        <h2 className="display-md text-paper">Prototype : slider avant/après</h2>
+        <p className="mt-4 text-paper-dim">
           Composant autonome, sans GSAP ni R3F. Images de démonstration ci-dessous,
           à remplacer par un vrai avant/après une fois le contenu prêt.
         </p>

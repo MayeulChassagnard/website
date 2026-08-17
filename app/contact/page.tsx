@@ -19,21 +19,32 @@ export default async function ContactPage() {
   try {
     about = await getAbout()
   } catch {
-    // Contentful not configured yet locally, or the "about" content type ID
-    // doesn't match, the form below still works either way.
+    // Contentful not configured, or the "about" content type ID doesn't
+    // match, the form below still works either way.
   }
 
   return (
-    <section className="mx-auto grid max-w-4xl gap-16 px-6 py-24 md:grid-cols-2">
-      <div>
-        <h1 className="text-3xl font-semibold">{about?.headline ?? 'Contact'}</h1>
-        {about?.body && (
-          <div className="prose prose-neutral mt-6 max-w-none dark:prose-invert">
-            <ReactMarkdown>{about.body}</ReactMarkdown>
-          </div>
-        )}
+    <section className="px-6 pt-40 pb-28">
+      <div className="mx-auto grid max-w-5xl gap-20 md:grid-cols-2">
+        <div>
+          <p className="eyebrow text-paper-faint">Contact</p>
+          <h1 className="display-lg mt-6 text-paper">
+            {about?.headline ?? 'Parlons de votre projet'}
+          </h1>
+          {about?.body && (
+            <div className="prose prose-invert-warm mt-8 max-w-none">
+              <ReactMarkdown>{about.body}</ReactMarkdown>
+            </div>
+          )}
+          <a
+            href="mailto:hello@mayeulchassagnard.com"
+            className="eyebrow mt-10 inline-block text-accent transition-opacity hover:opacity-70"
+          >
+            hello@mayeulchassagnard.com
+          </a>
+        </div>
+        <ContactForm />
       </div>
-      <ContactForm />
     </section>
   )
 }
