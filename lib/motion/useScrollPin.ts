@@ -36,20 +36,31 @@ export function useScrollPin<T extends HTMLElement>({
   useEffect(() => {
     if (!enabled || !ref.current) return
 
-    const trigger = ScrollTrigger.create({
-      trigger: ref.current,
-      start,
-      end: () => `+=${window.innerHeight * distance}`,
-      pin: true,
-      scrub: true,
-      invalidateOnRefresh: true,
-      onUpdate: self => {
-        progress.current = self.progress
-      },
+    // gsap.context + revert, not ScrollTrigger.kill().
+    //
+    // pin: true wraps the element in a generated pin-spacer. kill() leaves
+    // that spacer in the DOM, so React's double-invoked effects in
+    // development stack a second one, which duplicates the section visually
+    // and corrupts the scroll distance of every pinned section below it.
+    // revert() unwinds the spacer as well as the trigger.
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: ref.current!,
+        start,
+        end: () => `+=${window.innerHeight * distance}`,
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+        scrub: true,
+        invalidateOnRefresh: true,
+        onUpdate: self => {
+          progress.current = self.progress
+        },
+      })
     })
 
     return () => {
-      trigger.kill()
+      ctx.revert()
       progress.current = 0
     }
   }, [enabled, distance, start])

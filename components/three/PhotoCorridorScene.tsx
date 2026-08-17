@@ -148,8 +148,10 @@ function Rig({ progress }: { progress: RefObject<number> }) {
     const p = progress.current ?? 0
 
     // Hold back while the corridor gathers, then travel its whole length.
-    const travel = easeInOut(clamp01((p - 0.4) / 0.6))
-    camera.position.z = lerp(DEPTH / 2 + 9, -DEPTH / 2 - 4, travel)
+    // The far end is DEPTH/2 past the origin, so the camera has to overshoot
+    // it to actually clear the last panels rather than stopping among them.
+    const travel = easeInOut(clamp01((p - 0.35) / 0.65))
+    camera.position.z = lerp(DEPTH / 2 + 9, -DEPTH / 2 - 12, travel)
 
     // Slow drift keeps the flight from reading as a straight rail.
     camera.position.x = Math.sin(travel * Math.PI * 1.4) * 0.85
@@ -177,7 +179,9 @@ export default function PhotoCorridorScene({
       className="h-full w-full"
     >
       <color attach="background" args={['#000000']} />
-      <fog attach="fog" args={['#000000', 16, 62]} />
+      {/* Far plane sits beyond the corridor's full length, otherwise the last
+          panels are already fogged out by the time they are reached. */}
+      <fog attach="fog" args={['#000000', 22, 96]} />
       <Rig progress={progress} />
       <Suspense fallback={null}>
         {slots.map((slot, i) => (

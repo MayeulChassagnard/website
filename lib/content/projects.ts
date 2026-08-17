@@ -85,10 +85,10 @@ export const PROJECTS: Project[] = [
     cover: { kind: 'photo', photoIndex: 10 },
     format: 'square',
     blocks: [
-      { kind: 'sculpture', caption: 'Sucre, rendu temps réel WebGL, modélisation Blender' },
+      { kind: 'sculpture', caption: 'Sucre, du fil de fer au rendu, temps réel WebGL' },
       {
         kind: 'text',
-        body: "La pièce tourne d'elle-même, lentement, et suit à peine le regard. L'objet est rendu présent sans être rendu manipulable: on l'observe tourner, on ne le pilote pas.",
+        body: "Le défilement rejoue la fabrication dans l'ordre où elle a eu lieu: le maillage nu, puis les matières, puis les lumières colorées qui décident enfin de l'image. Ce qu'on voit à la fin ne tient qu'aux trois sources posées à la main.",
       },
       { kind: 'photo', photoIndex: 13, scale: 'inset' },
       {
