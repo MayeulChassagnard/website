@@ -5,6 +5,7 @@ import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import type { Photo } from '@/lib/content/media'
+import { useMounted } from '@/lib/motion/useMounted'
 import { usePrefersReducedMotion } from '@/lib/motion/usePrefersReducedMotion'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -29,10 +30,19 @@ const SPREAD: { x: number; y: number; r: number }[] = [
 export default function PhotoStack({ photos, label }: { photos: Photo[]; label?: string }) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const reducedMotion = usePrefersReducedMotion()
+  const mounted = useMounted()
   const cards = photos.slice(0, SPREAD.length)
 
   useEffect(() => {
-    if (reducedMotion || !sectionRef.current) return
+    // PhotoCorridor above this section pins only once WebGL support is
+    // confirmed, one render after everything else on the page mounts, since
+    // that answer has to start false to match the server. A trigger created
+    // before that render measures its position without that pin-spacer's
+    // reserved space and is left short by exactly its distance:
+    // ScrollTrigger.refresh() does not correct this after the fact, only
+    // creating the trigger after that pin exists does. Waiting for `mounted`
+    // lines this trigger up behind PhotoCorridor's in the same pass.
+    if (reducedMotion || !mounted || !sectionRef.current) return
 
     const ctx = gsap.context(() => {
       const timeline = gsap.timeline({
@@ -65,7 +75,7 @@ export default function PhotoStack({ photos, label }: { photos: Photo[]; label?:
     })
 
     return () => ctx.revert()
-  }, [reducedMotion, cards.length])
+  }, [reducedMotion, mounted, cards.length])
 
   if (reducedMotion) {
     return (

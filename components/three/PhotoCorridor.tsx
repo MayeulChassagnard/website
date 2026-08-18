@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useScrollPin } from '@/lib/motion/useScrollPin'
+import { useMounted } from '@/lib/motion/useMounted'
 import { usePrefersReducedMotion } from '@/lib/motion/usePrefersReducedMotion'
 import { useWebGLSupport } from '@/lib/motion/useWebGLSupport'
 
@@ -40,6 +41,14 @@ export default function PhotoCorridor({
   const reducedMotion = usePrefersReducedMotion()
   const supported = useWebGLSupport()
   const [coarse, setCoarse] = useState(0)
+
+  // WebGL support is unknown for the first client render (it must match the
+  // server, which always answers false), so `supported` starts false even in
+  // capable browsers and flips a render later. Gating on mount rather than on
+  // `supported` directly means that first render shows the same plain void
+  // the canvas itself opens on, instead of the still fallback flashing in
+  // just to be swapped out again a moment later.
+  const mounted = useMounted()
 
   const active = supported && !reducedMotion
   const { ref, progress } = useScrollPin<HTMLDivElement>({ distance: 4, enabled: active })
@@ -102,6 +111,16 @@ export default function PhotoCorridor({
       )}
     </div>
   )
+
+  // Neither branch below is a legitimate final state yet: `supported` cannot
+  // be trusted until the client has actually resolved it.
+  if (!mounted) {
+    return (
+      <section className="relative h-svh w-full overflow-hidden bg-void">
+        <div className="absolute inset-0">{overlay}</div>
+      </section>
+    )
+  }
 
   if (!active) {
     return (

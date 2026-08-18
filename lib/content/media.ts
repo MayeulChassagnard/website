@@ -34,7 +34,7 @@ export function flickrSize(url: string, size: 'c' | 'b' | 'h' | 'k'): string {
 }
 
 export function youtubePoster(id: string, quality: 'hq' | 'maxres' = 'maxres'): string {
-  return `https://i.ytimg.com/vi/${id}/${quality}resdefault.jpg`
+  return `https://i.ytimg.com/vi/${id}/${quality}default.jpg`
 }
 
 export const PHOTOS: Photo[] = [

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { useScrollPin } from '@/lib/motion/useScrollPin'
+import { useMounted } from '@/lib/motion/useMounted'
 import { usePrefersReducedMotion } from '@/lib/motion/usePrefersReducedMotion'
 import { useWebGLSupport } from '@/lib/motion/useWebGLSupport'
 
@@ -31,6 +32,15 @@ export default function Sculpture({ caption }: { caption?: string }) {
   const supported = useWebGLSupport()
   const [stage, setStage] = useState(0)
 
+  // WebGL support is unknown for the first client render (it must match the
+  // server, which always answers false), so `supported` starts false even in
+  // capable browsers and flips a render later. Gating the pin on mount rather
+  // than on `supported` directly avoids briefly rendering (and pinning) the
+  // static fallback in capable browsers, which otherwise flashes in and also
+  // has this section's ScrollTrigger pin measured a render late, throwing off
+  // the sections around it.
+  const mounted = useMounted()
+
   const active = supported && !reducedMotion
   const { ref, progress } = useScrollPin<HTMLDivElement>({ distance: 4, enabled: active })
   const rafRef = useRef(0)
@@ -55,6 +65,12 @@ export default function Sculpture({ caption }: { caption?: string }) {
     rafRef.current = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(rafRef.current)
   }, [active, progress])
+
+  // Neither branch below is a legitimate final state yet: `supported` cannot
+  // be trusted until the client has actually resolved it.
+  if (!mounted) {
+    return <div className="h-svh w-full bg-near" />
+  }
 
   if (!active) {
     return (

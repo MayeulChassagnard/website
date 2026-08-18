@@ -29,7 +29,11 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     // anchored to stale positions unless the triggers are recomputed.
     const refresh = () => ScrollTrigger.refresh()
 
-    window.addEventListener('load', refresh)
+    // By the time this effect runs, the browser's load event has often
+    // already fired (React mounts after first paint, and dev-mode overhead
+    // widens that gap further), so a plain listener can miss it forever.
+    if (document.readyState === 'complete') refresh()
+    else window.addEventListener('load', refresh)
 
     // Late-loading media fires no window load event once the page is already
     // loaded, so also watch the document for image decode completion.

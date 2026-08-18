@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useMounted } from '@/lib/motion/useMounted'
 import { usePrefersReducedMotion } from '@/lib/motion/usePrefersReducedMotion'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -30,9 +31,18 @@ export default function ParallaxMedia({
   const frameRef = useRef<HTMLDivElement>(null)
   const innerRef = useRef<HTMLDivElement>(null)
   const reducedMotion = usePrefersReducedMotion()
+  const mounted = useMounted()
 
   useEffect(() => {
-    if (reducedMotion || !frameRef.current || !innerRef.current) return
+    // PhotoCorridor (and Sculpture) pin only once WebGL support is confirmed,
+    // one render after everything else on the page mounts, since that answer
+    // has to start false to match the server. A trigger created before that
+    // render measures its position without that pin-spacer's reserved space
+    // and is left short by exactly its distance: ScrollTrigger.refresh()
+    // does not correct this after the fact, only creating the trigger after
+    // that pin exists does. Waiting for `mounted` lines every trigger up
+    // behind PhotoCorridor's in the same pass, in DOM order.
+    if (reducedMotion || !mounted || !frameRef.current || !innerRef.current) return
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -61,7 +71,7 @@ export default function ParallaxMedia({
     })
 
     return () => ctx.revert()
-  }, [reducedMotion, strength, mask])
+  }, [reducedMotion, mounted, strength, mask])
 
   return (
     <div ref={frameRef} className={`overflow-hidden ${className ?? ''}`}>
