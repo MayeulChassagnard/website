@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 }
 
 export default function AboutPage() {
-  const portrait = PHOTOS[7]
+  const portrait = PHOTOS[26]
 
   return (
     <>
@@ -31,7 +31,7 @@ export default function AboutPage() {
             <GalleryPhoto
               photo={portrait}
               photos={PHOTOS}
-              index={7}
+              index={26}
               sizes="(max-width: 768px) 100vw, 50vw"
               priority
               className="h-full"

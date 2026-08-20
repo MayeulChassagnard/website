@@ -6,11 +6,12 @@ import ScaleStage from '@/components/motion/ScaleStage'
 import MaskReveal from '@/components/motion/MaskReveal'
 import GalleryPhoto from '@/components/media/GalleryPhoto'
 import CinemaVideo from '@/components/media/CinemaVideo'
+import LoopClip from '@/components/media/LoopClip'
 import BeforeAfterSlider from '@/components/motion/BeforeAfterSlider'
 import PhotoStack from '@/components/sections/PhotoStack'
 import Sculpture from '@/components/three/Sculpture'
 import PhotoCorridor from '@/components/three/PhotoCorridor'
-import { PHOTOS, flickrSize, videoById } from '@/lib/content/media'
+import { CORRIDOR_STILL, PHOTOS, clipById, flickrSize, plateById, videoById } from '@/lib/content/media'
 import { photoAt, type Block } from '@/lib/content/projects'
 
 /**
@@ -114,21 +115,37 @@ export default function ProjectBlocks({ blocks }: { blocks: Block[] }) {
             )
           }
 
-          case 'compare': {
-            const photo = photoAt(block.photoIndex)
+          case 'clip': {
+            const clip = clipById(block.clipId)
+            if (!clip) return null
+
+            // Staged like the films rather than dropped in at print size: a
+            // render is the work here, not an illustration of it.
             return (
-              <section key={i} className="px-6 py-28 md:px-10 md:py-40">
-                <Reveal className="mx-auto max-w-4xl">
-                  <BeforeAfterSlider
-                    beforeSrc={photo.url}
-                    afterSrc={photo.url}
-                    beforeFilter="saturate(0.4) contrast(0.85) brightness(1.1)"
-                    beforeLabel="Brut"
-                    afterLabel="Étalonné"
-                  />
-                  {block.caption && <p className="label-sm mt-4 text-bone-faint">{block.caption}</p>}
-                </Reveal>
-              </section>
+              <ScaleStage key={i} label={block.caption}>
+                <LoopClip clip={clip} />
+              </ScaleStage>
+            )
+          }
+
+          case 'compare': {
+            const after = photoAt(block.photoIndex)
+            const before = block.beforePlateId ? plateById(block.beforePlateId) : undefined
+
+            // With no plate to show, the photograph is compared against
+            // itself de-graded: a grading has one source file by definition.
+            return (
+              <BeforeAfterSlider
+                key={i}
+                beforeSrc={before?.url ?? after.url}
+                afterSrc={after.url}
+                aspect={after.width / after.height}
+                beforeFilter={before ? undefined : 'saturate(0.4) contrast(0.85) brightness(1.1)'}
+                beforeLabel={block.beforeLabel}
+                afterLabel={block.afterLabel}
+                caption={block.caption}
+                priority={i === 0}
+              />
             )
           }
 
@@ -140,7 +157,7 @@ export default function ProjectBlocks({ blocks }: { blocks: Block[] }) {
               <PhotoCorridor
                 key={i}
                 images={PHOTOS.map(photo => flickrSize(photo.url, 'c'))}
-                stillSrc={PHOTOS[0].url}
+                stillSrc={CORRIDOR_STILL.url}
                 caption={block.caption}
               />
             )

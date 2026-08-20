@@ -125,7 +125,9 @@ export default function PhotoCorridor({
   if (!active) {
     return (
       <section className="relative h-svh w-full overflow-hidden bg-void">
-        <Image src={stillSrc} alt="" fill priority sizes="100vw" className="object-cover opacity-50" />
+        {/* The still is a frame of this very scene, so it is shown as it
+            renders rather than dimmed into a backdrop. */}
+        <Image src={stillSrc} alt="" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0">{overlay}</div>
       </section>
     )

@@ -7,7 +7,14 @@ export const metadata: Metadata = {
   description: 'Photographie, film, 3D, direction artistique et expérimentations visuelles.',
 }
 
-const MEDIA_ORDER = ['PHOTOGRAPHY', 'FILM', '3D / CGI', 'EXPERIMENTAL', 'ART DIRECTION'] as const
+const MEDIA_ORDER = [
+  'PHOTOGRAPHY',
+  'FILM',
+  '3D / CGI',
+  'PHOTOMONTAGE',
+  'EXPERIMENTAL',
+  'ART DIRECTION',
+] as const
 
 export default function WorkPage() {
   return (

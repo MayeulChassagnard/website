@@ -7,8 +7,8 @@ import PhotoStack from '@/components/sections/PhotoStack'
 import WorkIndex from '@/components/sections/WorkIndex'
 import Reveal from '@/components/motion/Reveal'
 import Sculpture from '@/components/three/Sculpture'
-import { PHOTOS, VIDEOS, flickrSize } from '@/lib/content/media'
-import { PROJECTS } from '@/lib/content/projects'
+import { CORRIDOR_STILL, PHOTOS, VIDEOS, flickrSize } from '@/lib/content/media'
+import { SELECTED_WORK } from '@/lib/content/projects'
 import { ARTIST, DISCIPLINES, ROLES, STATEMENT } from '@/lib/content/site'
 
 export default function HomePage() {
@@ -16,14 +16,14 @@ export default function HomePage() {
   // be a pointless download for panels a few hundred pixels wide on screen.
   const corridorImages = PHOTOS.map(photo => flickrSize(photo.url, 'c'))
   const opening = VIDEOS[1]
-  const featured = PROJECTS.slice(0, 4)
+  const featured = SELECTED_WORK
 
   return (
     <>
       {/* The opening: the archive gathers out of the dark, then is flown through. */}
       <PhotoCorridor
         images={corridorImages}
-        stillSrc={PHOTOS[3].url}
+        stillSrc={CORRIDOR_STILL.url}
         headline={{
           title: ARTIST,
           subtitle: ROLES.join('  /  '),
@@ -61,7 +61,7 @@ export default function HomePage() {
       <PhotoStack photos={PHOTOS.slice(4, 10)} label="Archive" />
 
       {/* The sculpture, turned by the page. */}
-      <Sculpture caption="Sucre, rendu temps réel WebGL" />
+      <Sculpture caption="Sugar, rendu temps réel WebGL" />
 
       <section className="pt-32 md:pt-48">
         <div className="mb-20 flex items-end justify-between px-6 md:mb-32 md:px-10">
