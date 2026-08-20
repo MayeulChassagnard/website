@@ -32,7 +32,7 @@ export default function ContactForm() {
     setStatus('submitting')
 
     try {
-      await fetch('/contact/', {
+      await fetch('/__forms.html', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: encode({ 'form-name': 'contact', ...values }),
