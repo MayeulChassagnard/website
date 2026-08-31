@@ -12,7 +12,8 @@
     "start": "next start",
     "lint": "eslint",
     "export:contentful": "node ./bin/export-contentful.js",
-    "render:corridor": "node ./bin/render-corridor.mjs"
+    "render:corridor": "node ./bin/render-corridor.mjs",
+    "render:share": "node ./bin/render-corridor.mjs --progress 0.62 --samples 44 --shutter 0.003 --width 1200 --height 630 --headline --out app/opengraph-image.png"
   },
   "dependencies": {
     "@next/third-parties": "16.3.1",
